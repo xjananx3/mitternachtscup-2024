@@ -23,6 +23,27 @@
     </tbody>
 </table>
 
+<h3>Paarungen</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Team-Nummer</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppeASpiele)
+    {
+    <tr>
+        <td>@item.TeamA.Name</td>
+        <td>@item.TeamB.Name</td>
+    </tr>
+    }
+    </tbody>
+</table>
+
+
 <h2>Gruppe B</h2>
  
 <table class="table table-bordered">
@@ -39,6 +60,26 @@
             <td>@item.Id</td>
             <td>@item.Name</td>
         </tr>
+    }
+    </tbody>
+</table>
+
+<h3>Paarungen</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Team-Nummer</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppeBSpiele)
+    {
+    <tr>
+        <td>@item.TeamA.Name</td>
+        <td>@item.TeamB.Name</td>
+    </tr>
     }
     </tbody>
 </table>
@@ -64,6 +105,26 @@
     </tbody>
 </table>
 
+<h3>Paarungen</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Team-Nummer</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppeCSpiele)
+    {
+    <tr>
+        <td>@item.TeamA.Name</td>
+        <td>@item.TeamB.Name</td>
+    </tr>
+    }
+    </tbody>
+</table>
+
 
 <h2>Gruppe D</h2>
 
@@ -81,6 +142,26 @@
             <td>@item.Id</td>
             <td>@item.Name</td>
         </tr>
+    }
+    </tbody>
+</table>
+
+<h3>Paarungen</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Team-Nummer</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppeDSpiele)
+    {
+    <tr>
+        <td>@item.TeamA.Name</td>
+        <td>@item.TeamB.Name</td>
+    </tr>
     }
     </tbody>
 </table>
@@ -106,6 +187,25 @@
     </tbody>
 </table>
 
+<h3>Paarungen</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Team-Nummer</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppeESpiele)
+    {
+    <tr>
+        <td>@item.TeamA.Name</td>
+        <td>@item.TeamB.Name</td>
+    </tr>
+    }
+    </tbody>
+</table>
 
 <h2>Gruppe F</h2>
 
@@ -123,6 +223,26 @@
             <td>@item.Id</td>
             <td>@item.Name</td>
         </tr>
+    }
+    </tbody>
+</table>
+
+<h3>Paarungen</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Team-Nummer</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppeFSpiele)
+    {
+    <tr>
+        <td>@item.TeamA.Name</td>
+        <td>@item.TeamB.Name</td>
+    </tr>
     }
     </tbody>
 </table>
@@ -148,6 +268,26 @@
     </tbody>
 </table>
 
+<h3>Paarungen</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Team-Nummer</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppeGSpiele)
+    {
+        <tr>
+            <td>@item.TeamA.Name</td>
+            <td>@item.TeamB.Name</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
 <h2>Gruppe H</h2>
 
 <table class="table table-bordered">
@@ -167,3 +307,27 @@
     }
     </tbody>
 </table>
+
+<h3>Paarungen</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Team-Nummer</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppeHSpiele)
+    {
+        <tr>
+            <td>@item.TeamA.Name</td>
+            <td>@item.TeamB.Name</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<form asp-action="ErstelleGruppenSpiele" method="post">
+    <button type="submit">Alle Gruppenspiele anlegen</button>
+</form>
