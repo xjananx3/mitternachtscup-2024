@@ -42,14 +42,14 @@ public class GruppenController : Controller
         if (gruppen.ContainsKey(7)) gruppenVm.GruppeGTeams = gruppen[7];
         if (gruppen.ContainsKey(8)) gruppenVm.GruppeHTeams = gruppen[8];
         
-        gruppenVm.GruppeASpiele = BerechnePaarungen(gruppen[1]);
-        gruppenVm.GruppeBSpiele = gruppen.ContainsKey(2) ? BerechnePaarungen(gruppen[2]) : new List<GruppenSpiel>();
-        gruppenVm.GruppeCSpiele = gruppen.ContainsKey(3) ? BerechnePaarungen(gruppen[3]) : new List<GruppenSpiel>();
-        gruppenVm.GruppeDSpiele = gruppen.ContainsKey(4) ? BerechnePaarungen(gruppen[4]) : new List<GruppenSpiel>();
-        gruppenVm.GruppeESpiele = gruppen.ContainsKey(5) ? BerechnePaarungen(gruppen[5]) : new List<GruppenSpiel>();
-        gruppenVm.GruppeFSpiele = gruppen.ContainsKey(6) ? BerechnePaarungen(gruppen[6]) : new List<GruppenSpiel>();
-        gruppenVm.GruppeGSpiele = gruppen.ContainsKey(7) ? BerechnePaarungen(gruppen[7]) : new List<GruppenSpiel>();
-        gruppenVm.GruppeHSpiele = gruppen.ContainsKey(8) ? BerechnePaarungen(gruppen[8]) : new List<GruppenSpiel>(); 
+        gruppenVm.GruppeASpiele = GenerierePaarungen(gruppen[1]);
+        gruppenVm.GruppeBSpiele = gruppen.ContainsKey(2) ? GenerierePaarungen(gruppen[2]) : new List<GruppenSpiel>();
+        gruppenVm.GruppeCSpiele = gruppen.ContainsKey(3) ? GenerierePaarungen(gruppen[3]) : new List<GruppenSpiel>();
+        gruppenVm.GruppeDSpiele = gruppen.ContainsKey(4) ? GenerierePaarungen(gruppen[4]) : new List<GruppenSpiel>();
+        gruppenVm.GruppeESpiele = gruppen.ContainsKey(5) ? GenerierePaarungen(gruppen[5]) : new List<GruppenSpiel>();
+        gruppenVm.GruppeFSpiele = gruppen.ContainsKey(6) ? GenerierePaarungen(gruppen[6]) : new List<GruppenSpiel>();
+        gruppenVm.GruppeGSpiele = gruppen.ContainsKey(7) ? GenerierePaarungen(gruppen[7]) : new List<GruppenSpiel>();
+        gruppenVm.GruppeHSpiele = gruppen.ContainsKey(8) ? GenerierePaarungen(gruppen[8]) : new List<GruppenSpiel>(); 
         
         // Save groups and matchups to session
         HttpContext.Session.SetObjectAsJson("gruppen", gruppen);
@@ -57,17 +57,23 @@ public class GruppenController : Controller
         return View(gruppenVm);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> ErstelleGruppenSpiele()
+    public async Task<IActionResult> AlleGruppenSpiele()
+    {
+        var gruppenSpiele = ErstelleGruppenSpiele();
+        return View(gruppenSpiele);
+    }
+
+    
+    public List<SpielVm> ErstelleGruppenSpiele()
     {
         var gruppen = HttpContext.Session.GetObjectFromJson<Dictionary<int, List<Team>>>("gruppen");
 
         if (gruppen == null)
         {
-            return BadRequest("Gruppendaten nicht gefunden. Bitte generieren Sie die Gruppen erneut.");
+            return new List<SpielVm>();
         }
         
-        var spiele = new List<Spiel>();
+        var spiele = new List<SpielVm>();
         int startZeitStunde = 18;
         TimeSpan spielDauer = TimeSpan.FromMinutes(20);
         DateTime startZeit = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, startZeitStunde, 0, 0);
@@ -77,10 +83,10 @@ public class GruppenController : Controller
         
         foreach (var gruppe in gruppen)
         {
-            var gruppenSpiele = BerechnePaarungen(gruppe.Value);
+            var gruppenSpiele = GenerierePaarungen(gruppe.Value);
             foreach (var gruppenSpiel in gruppenSpiele)
             {
-                var spiel = new Spiel
+                var spiel = new SpielVm
                 {
                     Name = $"Gruppe {Convert.ToChar('A' + (gruppe.Key - 1))} {spielIndex}. Spiel",
                     Platte = plattenIndex < 6 ? (Platten)plattenIndex : Platten.Ausstehend,
@@ -94,7 +100,7 @@ public class GruppenController : Controller
 
                 spiele.Add(spiel);
                 plattenIndex++;
-                if (plattenIndex >= 6)
+                if (plattenIndex > 6)
                 {
                     plattenIndex = 0;
                     spielIndex++;
@@ -102,11 +108,9 @@ public class GruppenController : Controller
             }
             spielIndex = 1;
         }
-
-        _spielRepository.AddRange(spiele);
-
-        return RedirectToAction("Index");
         
+        return spiele;
+
     }
 
     private Dictionary<int, List<Team>> GruppenAusTeamsErrechnen(IEnumerable<Team> teams, int gruppenAnzahl)
@@ -137,18 +141,28 @@ public class GruppenController : Controller
         return gruppen;
     }
 
-    private List<GruppenSpiel> BerechnePaarungen(List<Team> teams)
+    private List<GruppenSpiel> GenerierePaarungen(List<Team> teams)
     {
         var paarungen = new List<GruppenSpiel>();
+        int teamCount = teams.Count();
         
-        for (int i = 0; i < teams.Count; i++)
+        for (int round = 0; round < teamCount - 1; round++)
         {
-            for (int j = i + 1; j < teams.Count; j++)
+            for (int i = 0; i < teamCount / 2; i++)
             {
-                paarungen.Add(new GruppenSpiel
+                int teamA = (round + i) % (teamCount - 1);
+                int teamB = (teamCount - 1 - i + round) % (teamCount - 1);
+
+                // Last team stays in the same place, teams rotate around it
+                if (i == 0)
                 {
-                    TeamA = teams[i],
-                    TeamB = teams[j]
+                    teamB = teamCount - 1;
+                }
+
+                paarungen.Add(new GruppenSpiel()
+                {
+                    TeamA = teams[teamA],
+                    TeamB = teams[teamB]
                 });
             }
         }
