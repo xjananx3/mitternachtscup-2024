@@ -1,12 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
+using MitternachtsCup.Data;
+using MitternachtsCup.Interfaces;
 
 namespace MitternachtsCup.Controllers;
 
 public class SpielController : Controller
 {
-    // GET
-    public IActionResult Index()
+    private readonly ISpielRepository _spielRepository;
+
+    public SpielController(ISpielRepository spielRepository)
     {
-        return View();
+        _spielRepository = spielRepository;
+    }
+    public async Task<IActionResult> Index()
+    {
+        var spiele = await _spielRepository.GetAll();
+        return View(spiele);
     }
 }
