@@ -1,0 +1,19 @@
+@model MitternachtsCup.ViewModels.EditTeamVm
+
+@{
+    
+}
+
+<form method="post" asp-action="Edit">
+    <div class="form-group">
+        <label asp-for="Name">Name des Teams</label>
+        <input asp-for="Name" class="form-control" placeholder="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Punkte">Name des Teams</label>
+        <input asp-for="Punkte" class="form-control" placeholder="Punkte">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <button type="submit" value="Confirm" class="btn btn-primary">Bestätigen</button>
+</form>

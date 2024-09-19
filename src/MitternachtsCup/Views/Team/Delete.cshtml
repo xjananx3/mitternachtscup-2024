@@ -1,0 +1,26 @@
+@model Team
+
+@{
+    
+}
+
+<h2>Bist du sicher, dass du dieses Team löschen willst?</h2>
+
+<form method="post" asp-action="Delete" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" placeholder="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Punkte">Punkte</label>
+        <input asp-for="Punkte" class="form-control" placeholder="Punkte">
+        <span asp-validation-for="Punkte" class="text-danger"></span>
+    </div>
+</form>
+<div class="form-group">
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id"/>
+        <input type="submit" value="Confirm" class="btn btn-danger float-right mt-3"/>
+    </form>
+</div>
