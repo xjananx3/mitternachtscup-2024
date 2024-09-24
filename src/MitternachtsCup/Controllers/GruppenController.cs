@@ -57,7 +57,7 @@ public class GruppenController : Controller
         return View(gruppenVm);
     }
 
-    public async Task<IActionResult> AlleGruppenSpiele()
+    public IActionResult AlleGruppenSpiele()
     {
         var gruppenSpiele = ErstelleGruppenSpiele();
         return View(gruppenSpiele);
