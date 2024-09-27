@@ -27,7 +27,7 @@
         </tbody>
     </table>
     
-    <h3>Paarunge</h3>
+    <h3>Paarungen</h3>
     
     <table class="table table-bordered">
         <thead>
@@ -41,6 +41,7 @@
             <th>TeamA Name</th>
             <th>TeamB Name</th>
             <th>ID</th>
+            <th>CREATE</th>
         </tr>
         </thead>
         <tbody>
@@ -56,6 +57,7 @@
                 <td>@spiel.TeamAName</td>
                 <td>@spiel.TeamBName</td>
                 <td>@spiel.TeamBId</td>
+                <td><a asp-action="CreateSpiel" asp-route-name=@spiel.Name asp-route-teamAId=@spiel.TeamAId asp-route-teamBId=@spiel.TeamBId>Post</a></td>
             </tr>
         }
         </tbody>
