@@ -1,331 +1,66 @@
-@model MitternachtsCup.ViewModels.GruppenAnzeigeViewModel
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.EntityFrameworkCore
+@model IEnumerable<MitternachtsCup.ViewModels.GruppeVm>
 
 @{
 }
 
-<h2>Gruppe A</h2>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeATeams)
-    {
+@foreach (var item in Model)
+{
+    <h2>@item.GruppenName</h2>
+    
+    <table class="table table-bordered">
+        <thead>
         <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
+            <th>Team-Nummer</th>
+            <th>Name</th>
         </tr>
-    }
-    </tbody>
-</table>
-
-<h3>Paarungen</h3>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeASpiele)
-    {
-    <tr>
-        <td>@item.TeamA.Name</td>
-        <td>@item.TeamB.Name</td>
-    </tr>
-    }
-    </tbody>
-</table>
-
-
-<h2>Gruppe B</h2>
- 
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeBTeams)
-    {
+        </thead>
+        <tbody>
+        @foreach(var team in item.Teams)
+        {
+            <tr>
+                <td>@team.Id</td>
+                <td>@team.Name</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    <h3>Paarunge</h3>
+    
+    <table class="table table-bordered">
+        <thead>
         <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
+            <th>Nr</th>
+            <th>Name</th>
+            <th>Platte</th>
+            <th>Starzeit</th>
+            <th>Spieldauer</th>
+            <th>ID</th>
+            <th>TeamA Name</th>
+            <th>TeamB Name</th>
+            <th>ID</th>
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach(var spiel in item.GruppenSpiele)
+        {
+            <tr>
+                <td>@spiel.GruppenSpielNr</td>
+                <td>@spiel.Name</td>
+                <th>@spiel.Platte</th>
+                <td>@spiel.StartZeit</td>
+                <td>@spiel.SpielDauer</td>
+                <td>@spiel.TeamAId</td>
+                <td>@spiel.TeamAName</td>
+                <td>@spiel.TeamBName</td>
+                <td>@spiel.TeamBId</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
 
-<h3>Paarungen</h3>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeBSpiele)
-    {
-    <tr>
-        <td>@item.TeamA.Name</td>
-        <td>@item.TeamB.Name</td>
-    </tr>
-    }
-    </tbody>
-</table>
-
-
-<h2>Gruppe C</h2>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeCTeams)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<h3>Paarungen</h3>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeCSpiele)
-    {
-    <tr>
-        <td>@item.TeamA.Name</td>
-        <td>@item.TeamB.Name</td>
-    </tr>
-    }
-    </tbody>
-</table>
-
-
-<h2>Gruppe D</h2>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeDTeams)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<h3>Paarungen</h3>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeDSpiele)
-    {
-    <tr>
-        <td>@item.TeamA.Name</td>
-        <td>@item.TeamB.Name</td>
-    </tr>
-    }
-    </tbody>
-</table>
-
-
-<h2>Gruppe E</h2>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeETeams)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<h3>Paarungen</h3>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeESpiele)
-    {
-    <tr>
-        <td>@item.TeamA.Name</td>
-        <td>@item.TeamB.Name</td>
-    </tr>
-    }
-    </tbody>
-</table>
-
-<h2>Gruppe F</h2>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeFTeams)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<h3>Paarungen</h3>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeFSpiele)
-    {
-    <tr>
-        <td>@item.TeamA.Name</td>
-        <td>@item.TeamB.Name</td>
-    </tr>
-    }
-    </tbody>
-</table>
-
-
-<h2>Gruppe G</h2>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeGTeams)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<h3>Paarungen</h3>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeGSpiele)
-    {
-        <tr>
-            <td>@item.TeamA.Name</td>
-            <td>@item.TeamB.Name</td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<h2>Gruppe H</h2>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeHTeams)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<h3>Paarungen</h3>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Team-Nummer</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var item in Model.GruppeHSpiele)
-    {
-        <tr>
-            <td>@item.TeamA.Name</td>
-            <td>@item.TeamB.Name</td>
-        </tr>
-    }
-    </tbody>
-</table>
 
 <a asp-controller="Gruppen" asp-action="AlleGruppenSpiele" class="btn btn-sm btn-outline-secondary">Spiele generieren</a>
