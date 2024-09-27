@@ -9,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ISpielRepository, SpielRepository>();
+builder.Services.AddScoped<IGruppenRepository, GruppenRepository>();
 builder.Services.AddScoped<IKoRepository, KoRepository>();
+builder.Services.AddScoped<ITurnierplanRepository, TurnierplanRepository>();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30); // Session Timeout konfigurieren

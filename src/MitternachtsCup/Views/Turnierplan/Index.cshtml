@@ -1,0 +1,69 @@
+@model MitternachtsCup.ViewModels.TurnierplanVm
+
+@{
+    
+}
+
+<h2>Gruppenspiele</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>SpielDauer</th>
+        <th>Nr</th>
+        <th>Team A</th>
+        <th>Team B</th>
+        <th>Nr</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppenSpiele)
+    {
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Platte</td>
+        <td>@item.StartZeit</td>
+        <td>@item.SpielDauer</td>
+        <td>@item.TeamAId</td>
+        <td>@item.TeamAName</td>
+        <td>@item.TeamBName</td>
+        <td>@item.TeamBId</td>
+    </tr>
+    }
+    </tbody>
+</table>
+
+<h2>Ko-Spiele</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>SpielDauer</th>
+        <th>Nr</th>
+        <th>Team A</th>
+        <th>Team B</th>
+        <th>Nr</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.KoSpiele)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Platte</td>
+            <td>@item.StartZeit</td>
+            <td>@item.SpielDauer</td>
+            <td>@item.TeamAId</td>
+            <td>@item.TeamAName</td>
+            <td>@item.TeamBName</td>
+            <td>@item.TeamBId</td>
+        </tr>
+    }
+    </tbody>
+</table>
