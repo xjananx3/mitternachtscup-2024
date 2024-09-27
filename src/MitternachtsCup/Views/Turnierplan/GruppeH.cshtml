@@ -1,18 +1,56 @@
-@model TModel
+@model MitternachtsCup.ViewModels.GruppeVm
 
 @{
-    Layout = null;
+    
 }
 
-<!DOCTYPE html>
+<h2>Gruppe H</h2>
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      
-</div>
-</body>
-</html>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Team-Nummer</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td></td>
+        <td>Name</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Paarungen</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Nr</th>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>ID</th>
+        <th>TeamA Name</th>
+        <th>TeamB Name</th>
+        <th>ID</th>
+        <th>Ergebnis</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var spiel in Model.GruppenSpiele)
+    {
+    <tr>
+        <td>@spiel.GruppenSpielNr</td>
+        <td>@spiel.Name</td>
+        <th>@spiel.Platte</th>
+        <td>@spiel.StartZeit</td>
+        <td>@spiel.TeamAId</td>
+        <td>@spiel.TeamAName</td>
+        <td>@spiel.TeamBName</td>
+        <td>@spiel.TeamBId</td>
+        <td> : </td>
+    </tr>
+    }
+    </tbody>
+</table>
