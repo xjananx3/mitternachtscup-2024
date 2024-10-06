@@ -20,8 +20,22 @@ public class TurnierplanController : Controller
 
         var turnierplanVm = new TurnierplanVm()
         {
-            GruppenSpiele = gruppenSpiele,
-            KoSpiele = koSpiele
+            GruppenSpieleOhneErgebnis = gruppenSpiele,
+            KoSpieleOhneErgebnis = koSpiele
+        };
+        
+        return View(turnierplanVm);
+    }
+
+    public async Task<IActionResult> Tus()
+    {
+        var gruppenSpiele = await _turnierplanRepository.GetGruppenSpiele();
+        var koSpiele = await _turnierplanRepository.GetKoSpiele();
+
+        var turnierplanVm = new TurnierplanVm()
+        {
+            GruppenSpieleOhneErgebnis = gruppenSpiele,
+            KoSpieleOhneErgebnis = koSpiele
         };
         
         return View(turnierplanVm);

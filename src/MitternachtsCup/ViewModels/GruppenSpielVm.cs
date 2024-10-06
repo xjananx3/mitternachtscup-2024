@@ -4,6 +4,7 @@ namespace MitternachtsCup.ViewModels;
 
 public class GruppenSpielVm
 {
+    public int Id { get; set; }
     public int GruppenSpielNr { get; set; }
     public string Name { get; set; }
     public Platten Platte { get; set; }
@@ -14,7 +15,9 @@ public class GruppenSpielVm
     public string TeamAName { get; set; }
     public int? TeamBId { get; set; }
     public string TeamBName { get; set; }
+    public string GewinnerName { get; set; }
     
     public int? ErgebnisId { get; set; }
-    public string? Ergebnis { get; set; }
+    public int PunkteTeamA { get; set; }
+    public int PunkteTeamB { get; set; }
 }

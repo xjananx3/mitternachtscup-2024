@@ -20,6 +20,7 @@ public class TurnierplanRepository : ITurnierplanRepository
         return spiele.Where(s => s.Name.Contains("gruppe", StringComparison.CurrentCultureIgnoreCase))
             .Select(s => new GruppenSpielVm()
             {
+                Id = s.Id,
                 Name = s.Name,
                 Platte = s.Platte,
                 StartZeit = s.StartZeit,
@@ -39,6 +40,7 @@ public class TurnierplanRepository : ITurnierplanRepository
         return koSpiele.Where(s => s.Name.Contains("finale", StringComparison.CurrentCultureIgnoreCase))
             .Select(s => new KoSpielVm()
             {
+                Id = s.Id,
                 Name = s.Name,
                 Platte = s.Platte,
                 StartZeit = s.StartZeit,
@@ -57,6 +59,7 @@ public class TurnierplanRepository : ITurnierplanRepository
         var gruppenSpiele = spiele.Where(s => s.Name.Contains(gruppeName, StringComparison.CurrentCultureIgnoreCase))
             .Select(s => new GruppenSpielVm()
             {
+                Id = s.Id,
                 Name = s.Name,
                 Platte = s.Platte,
                 StartZeit = s.StartZeit,

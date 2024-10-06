@@ -1,0 +1,135 @@
+@using Microsoft.AspNetCore.Http.Features
+@model MitternachtsCup.ViewModels.TurnierplanVm
+
+@{
+    
+}
+
+<h1>Turnierplan</h1>
+
+<h2>Gruppenspiele</h2>
+
+<h3>Kommende</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Platte</th>
+        <th>EDIT</th>
+        <th>SpielName</th>
+        <th>Startzeit</th>
+        <th>Team A</th>
+        <th>Team B</th>
+        <th>Punkte Team A</th>
+        <th>Punkte Team B</th>
+        <th>POST</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppenSpieleOhneErgebnis)
+    {
+        <tr>
+            <td>@item.Platte</td>
+            <td>
+                <a asp-controller="Spiel" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Platte</a>
+            </td>
+            <td>@item.Name</td>
+            <td>@item.StartZeit</td>
+            <td>@item.TeamAName</td>
+            <td>@item.TeamBName</td>
+            <form method="post" asp-controller="Spiel" asp-action="CreateErgebnis" asp-route-spielId="@item.Id">
+            <td>
+                <input type="number" id="1" name="punkteTeamA" value="0" min="0" max="3"/>
+            </td>
+            <td>
+                <input type="number" id="2" name="punkteTeamB" value="0" min="0" max="3" />
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary">Post</button>
+            </td>
+            </form>
+        </tr>
+    }
+    </tbody>
+</table> 
+
+<!--
+<h3>Vergangene</h3>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Platte</th>
+        <th>SpielName</th>
+        <th>Team A</th>
+        <th>Team B</th>
+        <th>Ergebnis</th>
+        <th>Gewinner</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.GruppenSpieleMitErgebnis)
+    {
+        <tr>
+            <td>@item.Platte</td>
+            <td>@item.Name</td>
+            <td>@item.TeamAName</td>
+            <td>@item.TeamBName</td>
+            <td>@item.</td>
+            <td>@item.GewinnerName</td>
+        </tr>
+    }
+    </tbody>
+</table> -->
+
+<h2>Ko-Spiele</h2>
+
+<h3>Kommende</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Platte</th>
+        <th>SpielName</th>
+        <th>Team A</th>
+        <th>Team B</th>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.KoSpieleOhneErgebnis)
+    {
+        <tr>
+            <td>@item.Platte</td>
+            <td>@item.Name</td>
+            <td>@item.TeamAName</td>
+            <td>@item.TeamBName</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h3>Vergangene</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Platte</th>
+        <th>SpielName</th>
+        <th>Team A</th>
+        <th>Team B</th>
+        <th>Ergebnis</th>
+        <th>Gewinner</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.KoSpieleMitErgebnis)
+    {
+        <tr>
+            <td>@item.Platte</td>
+            <td>@item.Name</td>
+            <td>@item.TeamAName</td>
+            <td>@item.TeamBName</td>
+            <td>@item.Ergebnis</td>
+            <td>@item.GewinnerName</td>
+        </tr>
+    }
+    </tbody>
+</table>

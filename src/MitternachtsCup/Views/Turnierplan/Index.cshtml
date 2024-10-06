@@ -20,7 +20,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach(var item in Model.GruppenSpiele)
+    @foreach(var item in Model.GruppenSpieleOhneErgebnis)
     {
     <tr>
         <td>@item.Name</td>
@@ -52,7 +52,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach(var item in Model.KoSpiele)
+    @foreach(var item in Model.KoSpieleOhneErgebnis)
     {
         <tr>
             <td>@item.Name</td>
