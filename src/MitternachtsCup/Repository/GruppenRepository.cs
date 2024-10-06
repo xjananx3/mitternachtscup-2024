@@ -118,6 +118,13 @@ public class GruppenRepository : IGruppenRepository
     {
         var paarungen = new List<GruppenSpiel>();
         int teamCount = teams.Count();
+
+        bool ungeradeTeamAnzahl = teamCount % 2 != 0;
+        if (ungeradeTeamAnzahl)
+        {
+            teams.Add(null); // Das Null-Team repräsentiert das Freilos
+            teamCount++;     // Erhöhe die Teamanzahl, um sie gerade zu machen
+        }
         
         for (int round = 0; round < teamCount - 1; round++)
         {
@@ -126,17 +133,21 @@ public class GruppenRepository : IGruppenRepository
                 int teamA = (round + i) % (teamCount - 1);
                 int teamB = (teamCount - 1 - i + round) % (teamCount - 1);
 
-                // Last team stays in the same place, teams rotate around it
+                // Das letzte Team bleibt an der gleichen Position, die anderen rotieren
                 if (i == 0)
                 {
                     teamB = teamCount - 1;
                 }
 
-                paarungen.Add(new GruppenSpiel()
+                // Wenn kein Freilos vorhanden ist, füge die Paarung hinzu
+                if (teams[teamA] != null && teams[teamB] != null)
                 {
-                    TeamA = teams[teamA],
-                    TeamB = teams[teamB]
-                });
+                    paarungen.Add(new GruppenSpiel()
+                    {
+                        TeamA = teams[teamA],
+                        TeamB = teams[teamB]
+                    });
+                }
             }
         }
         return paarungen;

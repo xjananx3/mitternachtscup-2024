@@ -26,11 +26,7 @@ public class GruppenController : Controller
 
     public async Task<IActionResult> AlleGruppen(int anzahlGruppen)
     {
-
         var gruppen = await _gruppenRepository.GetRandomGruppenMitPaarungen(anzahlGruppen);
-
-        
-        HttpContext.Session.SetObjectAsJson("gruppen", gruppen);
         
         return View(gruppen);
     }
@@ -71,6 +67,6 @@ public class GruppenController : Controller
             TeamBId = spielVm.TeamBId,
         };
         _spielRepository.Add(spiel);
-        return RedirectToAction("AlleGruppen", "Gruppen");
+        return RedirectToAction("AlleGruppen", "Gruppen", 8);
     }
 }

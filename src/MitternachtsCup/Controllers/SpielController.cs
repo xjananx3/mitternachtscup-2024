@@ -94,6 +94,36 @@ public class SpielController : Controller
         return RedirectToAction("Index");
     }
     
+    [HttpPost]
+    public async Task<IActionResult> CreateErgebnis(int spielId, int punkteTeamA, int punkteTeamB)
+    {
+        var userSpiel = await _spielRepository.GetByIdAsync(spielId);
+
+        if (userSpiel != null)
+        {
+            var spielMitErgebnis = new Spiel()
+            {
+                Id = spielId,
+                Name = userSpiel.Name,
+                Platte = userSpiel.Platte,
+                StartZeit = userSpiel.StartZeit,
+                SpielDauer = userSpiel.SpielDauer,
+                TeamAId = userSpiel.TeamAId,
+                TeamA = userSpiel.TeamA,
+                TeamBId = userSpiel.TeamBId,
+                Ergebnis = new Ergebnis()
+                {
+                    PunkteTeamA = punkteTeamA,
+                    PunkteTeamB = punkteTeamB
+                }
+            };
+            _spielRepository.Update(spielMitErgebnis);
+            return RedirectToAction("Tus", "Turnierplan");
+        }
+        
+        return View("Error");
+    }
+    
     public async Task<IActionResult> Delete(int id)
     {
         var spielDetails = await _spielRepository.GetByIdAsync(id);

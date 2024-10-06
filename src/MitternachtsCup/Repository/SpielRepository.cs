@@ -20,7 +20,7 @@ public class SpielRepository : ISpielRepository
 
     public async Task<Spiel> GetByIdAsync(int id)
     {
-        return await _context.Spiele.FirstOrDefaultAsync(s => s.Id == id);
+        return await _context.Spiele.Include(s => s.Ergebnis).FirstOrDefaultAsync(s => s.Id == id);
     }
 
     public bool Add(Spiel spiel)

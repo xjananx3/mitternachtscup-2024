@@ -13,6 +13,7 @@ public class KoSpielVm
     public string TeamAName { get; set; }
     public int? TeamBId { get; set; }
     public string TeamBName { get; set; }
+    public string? GewinnerName { get; set; }
     
     public int? ErgebnisId { get; set; }
     public string? Ergebnis { get; set; }

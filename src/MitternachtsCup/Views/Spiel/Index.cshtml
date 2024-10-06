@@ -31,9 +31,7 @@
         <th>@item.SpielDauer</th>
         <th>@item.TeamA.Name</th>
         <th>@item.TeamB.Name</th>
-        <td>
-            <a asp-controller="Ergebnis" asp-action="CreateAusSpiel" asp-route-spielId="@item.Id" class="btn btn-sm btn-outline-secondary">Post</a>
-        </td>
+        
         <td>
             <a asp-controller="Spiel" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Löschen</a>
             <a asp-controller="Spiel" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Bearbeiten</a>
