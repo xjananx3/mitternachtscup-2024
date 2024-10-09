@@ -97,7 +97,7 @@ public class SpielController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateErgebnis(int spielId, int punkteTeamA, int punkteTeamB)
     {
-        var userSpiel = await _spielRepository.GetByIdAsync(spielId);
+        var userSpiel = await _spielRepository.GetByIdAsyncNoTracking(spielId);
 
         if (userSpiel != null)
         {
@@ -120,8 +120,8 @@ public class SpielController : Controller
             _spielRepository.Update(spielMitErgebnis);
             return RedirectToAction("Tus", "Turnierplan");
         }
-        
-        return View("Error");
+
+        return NotFound();
     }
     
     public async Task<IActionResult> Delete(int id)

@@ -15,13 +15,17 @@ public class TurnierplanController : Controller
     
     public async Task<IActionResult> Index()
     {
-        var gruppenSpiele = await _turnierplanRepository.GetGruppenSpiele();
-        var koSpiele = await _turnierplanRepository.GetKoSpiele();
+        var kommendeGruppenSpiele = await _turnierplanRepository.GetKommendeGruppenSpiele();
+        var kommendeKoSpiele = await _turnierplanRepository.GetKommendeKoSpiele();
+        var vergangeneGruppenSpiele = await _turnierplanRepository.GetVergangeneGruppenSpiele();
+        var vergangeneKoSpiele = await _turnierplanRepository.GetVergangeneKoSpiele();
 
         var turnierplanVm = new TurnierplanVm()
         {
-            GruppenSpieleOhneErgebnis = gruppenSpiele,
-            KoSpieleOhneErgebnis = koSpiele
+            GruppenSpieleOhneErgebnis = kommendeGruppenSpiele,
+            GruppenSpieleMitErgebnis = vergangeneGruppenSpiele,
+            KoSpieleOhneErgebnis = kommendeKoSpiele,
+            KoSpieleMitErgebnis = vergangeneKoSpiele
         };
         
         return View(turnierplanVm);
@@ -29,13 +33,17 @@ public class TurnierplanController : Controller
 
     public async Task<IActionResult> Tus()
     {
-        var gruppenSpiele = await _turnierplanRepository.GetGruppenSpiele();
-        var koSpiele = await _turnierplanRepository.GetKoSpiele();
+        var gruppenSpiele = await _turnierplanRepository.GetKommendeGruppenSpiele();
+        var koSpiele = await _turnierplanRepository.GetKommendeKoSpiele();
+        var vergangeneGruppenSpiele = await _turnierplanRepository.GetVergangeneGruppenSpiele();
+        var vergangeneKoSpiele = await _turnierplanRepository.GetVergangeneKoSpiele();
 
         var turnierplanVm = new TurnierplanVm()
         {
             GruppenSpieleOhneErgebnis = gruppenSpiele,
-            KoSpieleOhneErgebnis = koSpiele
+            GruppenSpieleMitErgebnis = vergangeneGruppenSpiele,
+            KoSpieleOhneErgebnis = koSpiele,
+            KoSpieleMitErgebnis = vergangeneKoSpiele
         };
         
         return View(turnierplanVm);

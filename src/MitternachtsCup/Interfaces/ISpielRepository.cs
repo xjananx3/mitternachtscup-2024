@@ -6,6 +6,7 @@ public interface ISpielRepository
 {
     Task<IEnumerable<Spiel>> GetAll();
     Task<Spiel> GetByIdAsync(int id);
+    Task<Spiel> GetByIdAsyncNoTracking(int id);
     bool Add(Spiel spiel);
     bool AddRange(IEnumerable<Spiel> spiele);
     bool Update(Spiel spiel);

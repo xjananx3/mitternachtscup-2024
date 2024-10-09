@@ -20,7 +20,21 @@ public class SpielRepository : ISpielRepository
 
     public async Task<Spiel> GetByIdAsync(int id)
     {
-        return await _context.Spiele.Include(s => s.Ergebnis).FirstOrDefaultAsync(s => s.Id == id);
+        return await _context.Spiele
+            .Include(t => t.TeamA)
+            .Include(t => t.TeamB)
+            .Include(s => s.Ergebnis)
+            .FirstOrDefaultAsync(s => s.Id == id);
+    }
+    
+    public async Task<Spiel> GetByIdAsyncNoTracking(int id)
+    {
+        return await _context.Spiele
+            .Include(t => t.TeamA)
+            .Include(t => t.TeamB)
+            .Include(s => s.Ergebnis)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Id == id);
     }
 
     public bool Add(Spiel spiel)
