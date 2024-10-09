@@ -25,12 +25,10 @@ public class GruppenRepository : IGruppenRepository
         return gruppenTeams;
     }
     
-    public async Task<IEnumerable<GruppeVm>> GetRandomGruppenMitPaarungen(int anzahlGruppen)
+    public IEnumerable<GruppeVm> GetSavedGruppenMitPaarungen(int anzahlGruppen, Dictionary<int, List<Team>> gruppenTeams)
     {
-        var teams = await _context.Teams.ToListAsync();
         
         var gruppenVM = new List<GruppeVm>();
-        var gruppenTeams = GruppenAusTeamsErrechnen(teams, anzahlGruppen);
         
         for (int i = 1; i <= anzahlGruppen; i++)
         {

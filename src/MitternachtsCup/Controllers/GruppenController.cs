@@ -5,6 +5,8 @@ using MitternachtsCup.Data.Enum;
 using MitternachtsCup.Interfaces;
 using MitternachtsCup.Models;
 using MitternachtsCup.ViewModels;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace MitternachtsCup.Controllers;
 
@@ -12,29 +14,51 @@ public class GruppenController : Controller
 {
     private readonly ISpielRepository _spielRepository;
     private readonly IGruppenRepository _gruppenRepository;
+    private readonly IWebHostEnvironment _hostingEnvironment;
+    private readonly string _jsonFileName = "gruppen.json";
 
-    public GruppenController(ISpielRepository spielRepository, IGruppenRepository gruppenRepository)
+    public GruppenController(ISpielRepository spielRepository, IGruppenRepository gruppenRepository, IWebHostEnvironment hostingEnvironment)
     {
         _spielRepository = spielRepository;
         _gruppenRepository = gruppenRepository;
-    }   
-    public IActionResult Index()
+        _hostingEnvironment = hostingEnvironment;
+    }  
+    
+    private string GetJsonFilePath()
     {
-        return View();
+        // Den Pfad zum wwwroot-Verzeichnis oder ein benutzerdefiniertes Verzeichnis festlegen
+        return Path.Combine(_hostingEnvironment.WebRootPath, _jsonFileName);
     }
-
-
-    public async Task<IActionResult> AlleGruppen(int anzahlGruppen)
+    
+    public async Task<ActionResult> Index()
     {
-        var gruppen = await _gruppenRepository.GetRandomGruppenMitPaarungen(anzahlGruppen);
+        string jsonPath = GetJsonFilePath();
+        if (System.IO.File.Exists(jsonPath))
+        {
+            var json = await System.IO.File.ReadAllTextAsync(jsonPath);
+            var gruppenTeams = JsonConvert.DeserializeObject<Dictionary<int, List<Team>>>(json);
+            return View(gruppenTeams);
+        }
         
-        return View(gruppen);
+        
+        Dictionary<int, List<Team>> gruppenTeamsr = await _gruppenRepository.GetRandomGruppenTeams(8);
+      
+        
+        return View(gruppenTeamsr);
     }
-
-    public IActionResult AlleGruppenSpiele()
+    
+    public async Task<IActionResult> AlleGruppen()
     {
-        var gruppenSpiele = new List<SpielVm>();
-        return View(gruppenSpiele);
+        string jsonPath = GetJsonFilePath();
+        if (System.IO.File.Exists(jsonPath))
+        {
+            var json = await System.IO.File.ReadAllTextAsync(jsonPath);
+            var gruppenTeams = JsonConvert.DeserializeObject<Dictionary<int, List<Team>>>(json);
+            var gruppen = _gruppenRepository.GetSavedGruppenMitPaarungen(8, gruppenTeams);
+            return View(gruppen);
+        }
+        
+        return View("Error");
     }
 
     public IActionResult CreateSpiel(string name, int teamAId, int teamBId)
@@ -67,6 +91,26 @@ public class GruppenController : Controller
             TeamBId = spielVm.TeamBId,
         };
         _spielRepository.Add(spiel);
-        return RedirectToAction("AlleGruppen", "Gruppen", 8);
+        return RedirectToAction("AlleGruppen", "Gruppen");
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SaveGruppen(Dictionary<int, List<Team>> gruppenTeams)
+    {
+        var jsonPath = GetJsonFilePath();
+        
+        if (gruppenTeams == null)
+        {
+            return BadRequest("Gruppen Daten sind leer.");
+        }
+        
+        var json = JsonConvert.SerializeObject(gruppenTeams);
+        await System.IO.File.WriteAllTextAsync(jsonPath, json);
+        
+        TempData["Message"] = "Gruppen erfolgreich gespeichert!";
+        
+        return RedirectToAction("Index");
+        
     }
 }

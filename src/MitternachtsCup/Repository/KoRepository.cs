@@ -40,14 +40,14 @@ public class KoRepository : IKoRepository
             Name = "Spiel um Platz 3",
             TeamAName = "Verlierer HF1",
             TeamBName = "Verlierer HF2",
-            StartZeit = DateTime.Now.AddDays(13)
+            StartZeit = new DateTime(2024, 11, 30, 23,50, 0)
         };
     }
     
     private IEnumerable<KoSpielVm> GenerateAchtelfinals(int groupCount)
     {
         var matches = new List<KoSpielVm>();
-        var startTimes = DateTime.Now.AddDays(1);
+        var startTimes = new DateTime(2024, 11, 30, 20, 30, 0);
         
         // Achtelfinale Schema für 8 Gruppen
         var eightGroupSchema = new (string TeamA, string TeamB)[]

@@ -1,4 +1,5 @@
 using MitternachtsCup.Data.Enum;
+using MitternachtsCup.Models;
 
 namespace MitternachtsCup.ViewModels;
 
@@ -18,6 +19,7 @@ public class GruppenSpielVm
     public string GewinnerName { get; set; }
     
     public int? ErgebnisId { get; set; }
+    public Ergebnis? Ergebnis { get; set; }
     public int PunkteTeamA { get; set; }
     public int PunkteTeamB { get; set; }
 }

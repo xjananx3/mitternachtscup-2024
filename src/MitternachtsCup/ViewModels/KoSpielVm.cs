@@ -1,4 +1,5 @@
 using MitternachtsCup.Data.Enum;
+using MitternachtsCup.Models;
 
 namespace MitternachtsCup.ViewModels;
 
@@ -16,5 +17,5 @@ public class KoSpielVm
     public string? GewinnerName { get; set; }
     
     public int? ErgebnisId { get; set; }
-    public string? Ergebnis { get; set; }
+    public Ergebnis? Ergebnis { get; set; }
 }

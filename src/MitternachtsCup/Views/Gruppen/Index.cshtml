@@ -1,4 +1,6 @@
-
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Newtonsoft.Json
+@model Dictionary<int, List<Team>>
 
 @{
     
@@ -7,6 +9,43 @@
 <h2>Hier kannst du deine Grppen für das Turnier auslosen</h2>
 
 <form asp-controller="Gruppen" asp-action="AlleGruppen">
-    <input type="number" name="AnzahlGruppen" value="4" min="4"/>
+    <input type="number" name="AnzahlGruppen" value="8" min="4"/>
     <button type="submit" class="btn btn-primary">Gruppen auslosen</button>
 </form>
+
+<form asp-action="SaveGruppen" method="post">
+    @foreach (var item in Model)
+    {
+    <h2>Gruppe @item.Key</h2>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Team-Nummer</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(int i = 0; i < item.Value.Count; i++)
+        {
+            var team = item.Value[i];
+            <tr>
+                <td>@team.Id</td>
+                <td>@team.Name</td>
+            </tr>
+            <input type="hidden" name="gruppenTeams[@item.Key][@i].Id" value="@team.Id" />
+            <input type="hidden" name="gruppenTeams[@item.Key][@i].Name" value="@team.Name" />
+        }
+        </tbody>
+    </table>
+    }
+    <button type="submit" class="btn btn-primary">Gruppen speichern</button>
+</form>
+
+
+@if (TempData["Message"] != null)
+{
+<div class="alert alert-success">
+    @TempData["Message"]
+</div>
+}

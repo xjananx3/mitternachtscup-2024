@@ -57,7 +57,7 @@
                 <td>@spiel.TeamAName</td>
                 <td>@spiel.TeamBName</td>
                 <td>@spiel.TeamBId</td>
-                <td><a asp-action="CreateSpiel" asp-route-name=@spiel.Name asp-route-teamAId=@spiel.TeamAId asp-route-teamBId=@spiel.TeamBId>Post</a></td>
+                <td><a asp-action="CreateSpiel" asp-route-name=@spiel.Name asp-route-teamAId=@spiel.TeamAId asp-route-teamBId=@spiel.TeamBId class="btn btn-primary">Post</a></td>
             </tr>
         }
         </tbody>
@@ -65,4 +65,3 @@
 }
 
 
-<a asp-controller="Gruppen" asp-action="AlleGruppenSpiele" class="btn btn-sm btn-outline-secondary">Spiele generieren</a>
