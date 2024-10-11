@@ -57,8 +57,22 @@ public class GruppenController : Controller
             var gruppen = _gruppenRepository.GetSavedGruppenMitPaarungen(8, gruppenTeams);
             return View(gruppen);
         }
-        
-        return View("Error");
+
+        return NotFound();
+    }
+
+    public async Task<IActionResult> AlleSpiele()
+    {
+        string jsonPath = GetJsonFilePath();
+        if (System.IO.File.Exists(jsonPath))
+        {
+            var json = await System.IO.File.ReadAllTextAsync(jsonPath);
+            var gruppenTeams = JsonConvert.DeserializeObject<Dictionary<int, List<Team>>>(json);
+            var gruppenSpiele = _gruppenRepository.GetSavedPaarungen(gruppenTeams);
+            return View(gruppenSpiele);
+        }
+
+        return NotFound();
     }
 
     public IActionResult CreateSpiel(string name, int teamAId, int teamBId)

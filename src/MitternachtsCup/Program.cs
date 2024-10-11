@@ -14,9 +14,9 @@ builder.Services.AddScoped<IKoRepository, KoRepository>();
 builder.Services.AddScoped<ITurnierplanRepository, TurnierplanRepository>();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session Timeout konfigurieren
-    options.Cookie.HttpOnly = true; // Session-Cookies sind HTTP-only
-    options.Cookie.IsEssential = true; // Die Sitzung ist für die Anwendung essentiell
+    options.IdleTimeout = TimeSpan.FromMinutes(30);         // Session Timeout konfigurieren
+    options.Cookie.HttpOnly = true;                         // Session-Cookies sind HTTP-only
+    options.Cookie.IsEssential = true;                      // Die Sitzung ist für die Anwendung essentiell
 });
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

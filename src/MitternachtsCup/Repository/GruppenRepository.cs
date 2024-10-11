@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MitternachtsCup.Data;
 using MitternachtsCup.Data.Enum;
 using MitternachtsCup.Interfaces;
@@ -24,7 +25,24 @@ public class GruppenRepository : IGruppenRepository
         var gruppenTeams = GruppenAusTeamsErrechnen(teams, anzahlGruppen);
         return gruppenTeams;
     }
-    
+
+    public IEnumerable<GruppenSpielVm> GetSavedPaarungen(Dictionary<int, List<Team>> gruppenTeams)
+    {
+        var alleGruppenSpieleVm = new List<GruppenSpielVm>();
+
+        foreach (var kvp in gruppenTeams)
+        {
+            int groupIndex = kvp.Key;
+            List<Team> teams = kvp.Value;
+            
+            var gruppenSpieleProGruppe = ErrechneGruppenSpiele(teams, groupIndex);
+            
+            alleGruppenSpieleVm.AddRange(gruppenSpieleProGruppe);
+        }
+
+        return alleGruppenSpieleVm;
+    }
+
     public IEnumerable<GruppeVm> GetSavedGruppenMitPaarungen(int anzahlGruppen, Dictionary<int, List<Team>> gruppenTeams)
     {
         
