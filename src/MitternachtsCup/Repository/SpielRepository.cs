@@ -15,9 +15,13 @@ public class SpielRepository : ISpielRepository
     }
     public async Task<IEnumerable<Spiel>> GetAll()
     {
-        return await _context.Spiele.ToListAsync();
+        return await _context.Spiele
+            .Include(s => s.TeamA)
+            .Include(s => s.TeamB)
+            .Include(s => s.Ergebnis)
+            .ToListAsync();
     }
-
+    
     public async Task<Spiel> GetByIdAsync(int id)
     {
         return await _context.Spiele

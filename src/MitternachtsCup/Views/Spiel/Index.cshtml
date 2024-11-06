@@ -1,10 +1,11 @@
-@model IEnumerable<Spiel>
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<MitternachtsCup.ViewModels.SpielVm>
 
 @{
     
 }
 
-<h1>Alle eingetragenen Spiele</h1>
+<h1>Eingetragende Spiele</h1>
 
 <table class="table table-bordered">
     <thead>
@@ -14,9 +15,11 @@
         <th>Platte</th>
         <th>Startzeit</th>
         <th>SpielDauer</th>
+        <th>TeamA ID</th>
         <th>Team A</th>
         <th>Team B</th>
-        <th>POST Ergebnis</th>
+        <th>Team B ID</th>
+        <th>Ergebnis</th>
         <th>Delete</th>
     </tr>
     </thead>
@@ -30,8 +33,10 @@
         <th>@item.StartZeit</th>
         <th>@item.SpielDauer</th>
         <th>@item.TeamAId</th>
+        <th>@item.TeamA.Name</th>
+        <th>@item.TeamB.Name</th>
         <th>@item.TeamBId</th>
-        
+        <th>@item.Ergebnis</th>
         <td>
             <a asp-controller="Spiel" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Löschen</a>
             <a asp-controller="Spiel" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Bearbeiten</a>

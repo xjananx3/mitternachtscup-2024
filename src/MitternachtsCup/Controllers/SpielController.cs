@@ -17,7 +17,23 @@ public class SpielController : Controller
     public async Task<IActionResult> Index()
     {
         var spiele = await _spielRepository.GetAll();
-        return View(spiele);
+
+        var spieleVm = spiele.Select(s => new SpielVm()
+        {
+            Id = s.Id,
+            Name = s.Name,
+            Platte = s.Platte,
+            StartZeit = s.StartZeit,
+            SpielDauer = s.SpielDauer,
+            TeamAId = s.TeamAId,
+            TeamBId = s.TeamBId,
+            TeamA = s.TeamA,
+            TeamB = s.TeamB,
+            Ergebnis = $"{s.Ergebnis?.PunkteTeamA} : {s.Ergebnis?.PunkteTeamB}" ?? string.Empty
+        });
+        
+        
+        return View(spieleVm);
     }
     
     public IActionResult Create(int teamAId, int teamBId)

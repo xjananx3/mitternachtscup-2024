@@ -14,4 +14,5 @@ public class SpielVm
     public Team? TeamA { get; set; }
     public int? TeamBId { get; set; }
     public Team? TeamB { get; set; }
+    public string? Ergebnis { get; set; }
 }
