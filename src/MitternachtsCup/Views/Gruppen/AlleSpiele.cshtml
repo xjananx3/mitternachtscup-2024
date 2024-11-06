@@ -1,0 +1,44 @@
+@model IEnumerable<MitternachtsCup.ViewModels.GruppenSpielVm>
+
+@{
+    
+}
+
+<h1>Alle eingetragenen Spiele</h1>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>SpielDauer</th>
+        <th>Team A</th>
+        <th>Team B</th>
+        <th>POST Ergebnis</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <th>@item.Platte</th>
+            <th>@item.StartZeit</th>
+            <th>@item.SpielDauer</th>
+            <th>@item.TeamAId</th>
+            <th>@item.TeamAName</th>
+            <th>@item.TeamBName</th>
+            <th>@item.TeamBId</th>
+        
+            <td>
+                <a asp-controller="Spiel" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Löschen</a>
+                <a asp-controller="Spiel" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Bearbeiten</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

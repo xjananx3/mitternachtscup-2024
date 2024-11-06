@@ -5,23 +5,30 @@
 }
 
 <h2>Gruppe B</h2>
-    
+
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Team-Nummer</th>
+        <th>Platz</th>
         <th>Name</th>
+        <th>Punkte</th>
+        <th>Bilanz</th>
     </tr>
     </thead>
     <tbody>
+    @foreach (var team in Model.PlatzierungTeams)
+    {
     <tr>
-        <td></td>
-        <td>Name</td>
+        <td>@team.Platzierung</td>
+        <td>@team.Name</td>
+        <td>@team.Punkte</td>
+        <td>@team.Spiele : @team.Gegenspiele</td>
     </tr>
+    }
     </tbody>
 </table>
     
-<h3>Paarungen</h3>
+<h3>Kommende Gruppenspiele</h3>
     
 <table class="table table-bordered">
     <thead>
@@ -30,11 +37,8 @@
         <th>Name</th>
         <th>Platte</th>
         <th>Startzeit</th>
-        <th>ID</th>
         <th>TeamA Name</th>
         <th>TeamB Name</th>
-        <th>ID</th>
-        <th>Ergebnis</th>
     </tr>
     </thead>
     <tbody>
@@ -45,11 +49,44 @@
             <td>@spiel.Name</td>
             <th>@spiel.Platte</th>
             <td>@spiel.StartZeit</td>
-            <td>@spiel.TeamAId</td>
             <td>@spiel.TeamAName</td>
             <td>@spiel.TeamBName</td>
-            <td>@spiel.TeamBId</td>
-            <td> : </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h2>Vergangene Gruppenspiele</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Nr</th>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>TeamA Name</th>
+        <th>TeamB Name</th>
+        <th>Ergebnis</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var spiel in Model.VergangeneGruppenSpiele)
+    {
+        <tr>
+            <td>@spiel.GruppenSpielNr</td>
+            <td>@spiel.Name</td>
+            <th>@spiel.Platte</th>
+            <td>@spiel.StartZeit</td>
+            <td>@spiel.TeamAName</td>
+            <td>@spiel.TeamBName</td>
+            <td>
+                @if (spiel.Ergebnis != null)
+                {
+                    @:@spiel.Ergebnis.PunkteTeamA : @spiel.Ergebnis.PunkteTeamB
+                }
+
+            </td>
         </tr>
     }
     </tbody>
