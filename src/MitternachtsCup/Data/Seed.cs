@@ -19,11 +19,11 @@ public class Seed
                     {
                         new Team()
                         {
-                            Name = "Bohnenkloper 1"
+                            Name = "Bohnenklopfer 1"
                         },
                         new Team()
                         {
-                            Name = "Bohnenkloper 2"
+                            Name = "Bohnenklopfer 2"
                         },
                         new Team()
                         {
@@ -128,6 +128,22 @@ public class Seed
 			            new Team()
                         {
                             Name = "Schmetterlinge"
+                        },
+                        new Team()
+                        {
+                            Name = "Die Plattenputzer"
+                        },
+                        new Team()
+                        {
+                            Name = "Die Rasierer"
+                        },
+                        new Team()
+                        {
+                            Name = "TuS 1"
+                        },
+                        new Team()
+                        {
+                            Name = "TuS 2"
                         },
                     });
                 context.SaveChanges();
