@@ -38,18 +38,19 @@
             <td>@item.StartZeit</td>
             <td>@item.TeamAName</td>
             <td>@item.TeamBName</td>
-            
-            <td>
-                <form asp-controller="Spiel" asp-action="CreateErgebnis" method="post">
+            <form asp-controller="Spiel" asp-action="CreateErgebnis" method="post">
+                <td>
                     <input type="hidden" name="spielId" value="@item.Id"/>
                     <input type="number" name="punkteTeamA" value="0" min="0" max="3" class="form-control"/>
+                </td>
+                <td>
                     <input type="number" name="punkteTeamB" value="0" min="0" max="3" class="form-control"/>
+                </td>
+                <td>
                     <button type="submit" class="btn btn-sm btn-outline-secondary">Post</button>
-                </form>
-            </td>
-            <td>
-                
-            </td>
+                </td>
+            </form>
+            
         </tr>
     }
     </tbody>
@@ -76,7 +77,7 @@
             <td>@item.Name</td>
             <td>@item.TeamAName</td>
             <td>@item.TeamBName</td>
-            <td>@item.</td>
+            <td>@item.Ergebnis.PunkteTeamA : @item.Ergebnis.PunkteTeamB</td>
             <td>@item.GewinnerName</td>
         </tr>
     }
@@ -129,7 +130,7 @@
             <td>@item.Name</td>
             <td>@item.TeamAName</td>
             <td>@item.TeamBName</td>
-            <td>@item.Ergebnis</td>
+            <td>@item.Ergebnis.PunkteTeamA : @item.Ergebnis.PunkteTeamB</td>
             <td>@item.GewinnerName</td>
         </tr>
     }

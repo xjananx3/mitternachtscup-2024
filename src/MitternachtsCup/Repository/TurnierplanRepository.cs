@@ -95,7 +95,7 @@ public class TurnierplanRepository : ITurnierplanRepository
             .Where(s => s.ErgebnisId != null)
             .ToListAsync();
 
-        return koSpiele.Where(s => s.Name.Contains("finale", StringComparison.CurrentCultureIgnoreCase))
+        return koSpiele.Where(s => s.Name.Contains("finale", StringComparison.CurrentCultureIgnoreCase) || s.Name.Contains("Bronze", StringComparison.CurrentCultureIgnoreCase))
             .Select(s => new KoSpielVm()
             {
                 Id = s.Id,
