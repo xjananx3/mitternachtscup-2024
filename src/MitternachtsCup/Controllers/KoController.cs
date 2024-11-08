@@ -16,20 +16,7 @@ public class KoController : Controller
     
     public IActionResult Index()
     {
-        var alleKoSpiele = new List<KoSpielVm>();
-        
-        var achtelfinale = _koRepository.GetDummyAchtelfinals(8);
-        var viertelfinale = _koRepository.GetDummyViertelfinals();
-        var halbfinals = _koRepository.GetDummyHalbfinals();
-        var final = _koRepository.GetDummyFinal();
-        var spielUmPlatz3 = _koRepository.GetDummySpielUmPlatz3();
-        
-        alleKoSpiele.AddRange(achtelfinale);
-        alleKoSpiele.AddRange(viertelfinale);
-        alleKoSpiele.AddRange(halbfinals);
-        
-        alleKoSpiele.Add(final);
-        alleKoSpiele.Add(spielUmPlatz3);
+        var alleKoSpiele = _koRepository.GetAllDummyKoSpiele(8);
         
         return View(alleKoSpiele);
     }

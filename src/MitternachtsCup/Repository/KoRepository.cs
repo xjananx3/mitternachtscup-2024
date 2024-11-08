@@ -6,6 +6,26 @@ namespace MitternachtsCup.Repository;
 
 public class KoRepository : IKoRepository
 {
+    public IEnumerable<KoSpielVm> GetAllDummyKoSpiele(int groupCount)
+    {
+        var alleKoSpiele  = new List<KoSpielVm>();
+        
+        var achtelfinale = GetDummyAchtelfinals(8);
+        var viertelfinale = GetDummyViertelfinals();
+        var halbfinals = GetDummyHalbfinals();
+        var final = GetDummyFinal();
+        var spielUmPlatz3 = GetDummySpielUmBronze();
+        
+        alleKoSpiele.AddRange(achtelfinale);
+        alleKoSpiele.AddRange(viertelfinale);
+        alleKoSpiele.AddRange(halbfinals);
+        
+        alleKoSpiele.Add(final);
+        alleKoSpiele.Add(spielUmPlatz3);
+
+        return alleKoSpiele;
+    }
+
     public IEnumerable<KoSpielVm> GetDummyAchtelfinals(int groupCount)
     {
         return GenerateAchtelfinals(groupCount);
@@ -13,12 +33,12 @@ public class KoRepository : IKoRepository
 
     public IEnumerable<KoSpielVm> GetDummyViertelfinals()
     {
-        return GenerateNextRounds("Viertelfinale",8, DateTime.Now.AddDays(4));
+        return GenerateQuarterFinals("Viertelfinale",9, DateTime.Now.AddDays(4));
     }
 
     public IEnumerable<KoSpielVm> GetDummyHalbfinals()
     {
-        return GenerateNextRounds("Halbfinale",12, DateTime.Now.AddDays(9));
+        return GenerateSemiFinals("Halbfinale",13, DateTime.Now.AddDays(9));
     }
 
     public KoSpielVm GetDummyFinal()
@@ -32,7 +52,7 @@ public class KoRepository : IKoRepository
         };
     }
 
-    public KoSpielVm GetDummySpielUmPlatz3()
+    public KoSpielVm GetDummySpielUmBronze()
     {
         return new KoSpielVm
         {
@@ -83,10 +103,28 @@ public class KoRepository : IKoRepository
         return matches;
     }
 
-    private IEnumerable<KoSpielVm> GenerateNextRounds(string roundName, int startId, DateTime startTime)
+    private IEnumerable<KoSpielVm> GenerateQuarterFinals(string roundName, int startId, DateTime startTime)
     {
         var matches = new List<KoSpielVm>();
         for (int i = 0; i < 4; i++)
+        {
+            matches.Add(new KoSpielVm
+            {
+                Id = startId + i,
+                Name = $"{i + 1}. {roundName}",
+                StartZeit = startTime,
+                TeamAName = $"Sieger AF{i * 2 + 1}",
+                TeamBName = $"Sieger AF{i * 2 + 2}"
+            });
+        }
+
+        return matches;
+    }
+    
+    private IEnumerable<KoSpielVm> GenerateSemiFinals(string roundName, int startId, DateTime startTime)
+    {
+        var matches = new List<KoSpielVm>();
+        for (int i = 0; i < 2; i++)
         {
             matches.Add(new KoSpielVm
             {

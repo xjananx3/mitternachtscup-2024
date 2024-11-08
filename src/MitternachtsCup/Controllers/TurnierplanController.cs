@@ -7,16 +7,23 @@ namespace MitternachtsCup.Controllers;
 public class TurnierplanController : Controller
 {
     private readonly ITurnierplanRepository _turnierplanRepository;
+    private readonly IKoRepository _koRepository;
 
-    public TurnierplanController(ITurnierplanRepository turnierplanRepository)
+    public TurnierplanController(ITurnierplanRepository turnierplanRepository, IKoRepository koRepository)
     {
         _turnierplanRepository = turnierplanRepository;
+        _koRepository = koRepository;
     }
     
     public async Task<IActionResult> Index()
     {
         var kommendeGruppenSpiele = await _turnierplanRepository.GetKommendeGruppenSpiele();
         var kommendeKoSpiele = await _turnierplanRepository.GetKommendeKoSpiele();
+        if (!kommendeKoSpiele.Any())
+        {
+            // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
+            kommendeKoSpiele = _koRepository.GetAllDummyKoSpiele(8);
+        }
         var vergangeneGruppenSpiele = await _turnierplanRepository.GetVergangeneGruppenSpiele();
         var vergangeneKoSpiele = await _turnierplanRepository.GetVergangeneKoSpiele();
 
@@ -35,6 +42,12 @@ public class TurnierplanController : Controller
     {
         var gruppenSpiele = await _turnierplanRepository.GetKommendeGruppenSpiele();
         var koSpiele = await _turnierplanRepository.GetKommendeKoSpiele();
+        if (!koSpiele.Any())
+        {
+            // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
+            koSpiele = _koRepository.GetAllDummyKoSpiele(8);
+        }
+        
         var vergangeneGruppenSpiele = await _turnierplanRepository.GetVergangeneGruppenSpiele();
         var vergangeneKoSpiele = await _turnierplanRepository.GetVergangeneKoSpiele();
 
@@ -103,5 +116,23 @@ public class TurnierplanController : Controller
         var gruppe = await _turnierplanRepository.GetGruppeByName("Gruppe H");
 
         return View(gruppe);
+    }
+
+    public async Task<IActionResult> KoPhase()
+    {
+        var koSpiele = new List<KoSpielVm>();
+        
+        var kommendeKoSpiele = await _turnierplanRepository.GetKommendeKoSpiele();
+        if (!kommendeKoSpiele.Any())
+        {
+            // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
+            kommendeKoSpiele = _koRepository.GetAllDummyKoSpiele(8);
+        }
+        var vergangeneKoSpiele = await _turnierplanRepository.GetVergangeneKoSpiele();
+        
+        koSpiele.AddRange(kommendeKoSpiele);
+        koSpiele.AddRange(vergangeneKoSpiele);
+        
+        return View(koSpiele);
     }
 }
