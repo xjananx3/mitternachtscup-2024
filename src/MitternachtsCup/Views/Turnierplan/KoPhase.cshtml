@@ -1,0 +1,160 @@
+@model MitternachtsCup.ViewModels.KoPhaseViewModel
+
+@{
+    
+}
+
+<h2>Achtelfinale</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>TeamA Name</th>
+        <th>TeamB Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var spiel in Model.Achtelfinals)
+    {
+        <tr>
+            <td>@spiel.Name</td>
+            <th>@spiel.Platte</th>
+            <td>@spiel.StartZeit</td>
+            <td>@spiel.TeamAName</td>
+            <td>@spiel.TeamBName</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h2>Viertelfinale</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>TeamA Name</th>
+        <th>TeamB Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var spiel in Model.Viertelfinals)
+    {
+        <tr>
+            <td>@spiel.Name</td>
+            <th>@spiel.Platte</th>
+            <td>@spiel.StartZeit</td>
+            <td>@spiel.TeamAName</td>
+            <td>@spiel.TeamBName</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h2>Halbfinale</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>TeamA Name</th>
+        <th>TeamB Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var spiel in Model.Halbfinals)
+    {
+    <tr>
+        <td>@spiel.Name</td>
+        <th>@spiel.Platte</th>
+        <td>@spiel.StartZeit</td>
+        <td>@spiel.TeamAName</td>
+        <td>@spiel.TeamBName</td>
+    </tr>
+    }
+    </tbody>
+</table>
+
+<h2>Spiel um Platz 3</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>TeamA Name</th>
+        <th>TeamB Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.SpielUmPlatz3.Name</td>
+        <th>@Model.SpielUmPlatz3.Platte</th>
+        <td>@Model.SpielUmPlatz3.StartZeit</td>
+        <td>@Model.SpielUmPlatz3.TeamAName</td>
+        <td>@Model.SpielUmPlatz3.TeamBName</td>
+    </tr>
+    
+    </tbody>
+</table>
+
+<h2>Finale</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>TeamA Name</th>
+        <th>TeamB Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.Finale.Name</td>
+        <th>@Model.Finale.Platte</th>
+        <td>@Model.Finale.StartZeit</td>
+        <td>@Model.Finale.TeamAName</td>
+        <td>@Model.Finale.TeamBName</td>
+    </tr>
+
+    </tbody>
+</table>
+
+
+<h2>Vergangene Ko-Spiele</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>TeamA Name</th>
+        <th>TeamB Name</th>
+        <th>Ergebnis</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var spiel in Model.VergangeneKoSpiele)
+    {
+        <tr>
+            <td>@spiel.Name</td>
+            <th>@spiel.Platte</th>
+            <td>@spiel.StartZeit</td>
+            <td>@spiel.TeamAName</td>
+            <td>@spiel.TeamBName</td>
+            <td>@spiel.Ergebnis.PunkteTeamA : @spiel.Ergebnis.PunkteTeamB</td>
+        </tr>
+    }
+    </tbody>
+</table>

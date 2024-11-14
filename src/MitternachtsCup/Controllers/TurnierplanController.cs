@@ -120,19 +120,41 @@ public class TurnierplanController : Controller
 
     public async Task<IActionResult> KoPhase()
     {
-        var koSpiele = new List<KoSpielVm>();
-        
-        var kommendeKoSpiele = await _turnierplanRepository.GetKommendeKoSpiele();
-        if (!kommendeKoSpiele.Any())
+        var achtelfinals = await _turnierplanRepository.GetKoSpieleByName("Achtelfinale");
+        if (!achtelfinals.Any())
         {
             // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
-            kommendeKoSpiele = _koRepository.GetAllDummyKoSpiele(8);
+            achtelfinals = _koRepository.GetDummyAchtelfinals(8);
         }
+        var viertelfinals = await _turnierplanRepository.GetKoSpieleByName("Viertelfinale");
+        if (!viertelfinals.Any())
+        {
+            // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
+            viertelfinals = _koRepository.GetDummyViertelfinals();
+        }
+        
+        var halbfinals = await _turnierplanRepository.GetKoSpieleByName("Halbfinale");
+        if (!halbfinals.Any())
+        {
+            // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
+            halbfinals = _koRepository.GetDummyHalbfinals();
+        }
+        var finale = await _turnierplanRepository.GetFinalSpiel("Finale");
+        
+        var spielUmPlatz3 = await _turnierplanRepository.GetFinalSpiel("Spiel um Platz 3");
+        
         var vergangeneKoSpiele = await _turnierplanRepository.GetVergangeneKoSpiele();
         
-        koSpiele.AddRange(kommendeKoSpiele);
-        koSpiele.AddRange(vergangeneKoSpiele);
+        var koPhase = new KoPhaseViewModel()
+        {
+            Achtelfinals = achtelfinals,
+            Viertelfinals = viertelfinals,
+            Halbfinals = halbfinals,
+            Finale = finale,
+            SpielUmPlatz3 = spielUmPlatz3,
+            VergangeneKoSpiele = vergangeneKoSpiele
+        };
         
-        return View(koSpiele);
+        return View(koPhase);
     }
 }
