@@ -17,16 +17,17 @@ public class TurnierplanController : Controller
     
     public async Task<IActionResult> Index()
     {
+        var vergangeneGruppenSpiele = await _turnierplanRepository.GetVergangeneGruppenSpiele();
+        var vergangeneKoSpiele = await _turnierplanRepository.GetVergangeneKoSpiele();
+        
         var kommendeGruppenSpiele = await _turnierplanRepository.GetKommendeGruppenSpiele();
         var kommendeKoSpiele = await _turnierplanRepository.GetKommendeKoSpiele();
-        if (!kommendeKoSpiele.Any())
+        if (!kommendeKoSpiele.Any() && !vergangeneKoSpiele.Any())
         {
             // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
             kommendeKoSpiele = _koRepository.GetAllDummyKoSpiele(8);
         }
-        var vergangeneGruppenSpiele = await _turnierplanRepository.GetVergangeneGruppenSpiele();
-        var vergangeneKoSpiele = await _turnierplanRepository.GetVergangeneKoSpiele();
-
+        
         var turnierplanVm = new TurnierplanVm()
         {
             GruppenSpieleOhneErgebnis = kommendeGruppenSpiele,
@@ -120,30 +121,39 @@ public class TurnierplanController : Controller
 
     public async Task<IActionResult> KoPhase()
     {
+        var vergangeneKoSpiele = await _turnierplanRepository.GetVergangeneKoSpiele();
+        
         var achtelfinals = await _turnierplanRepository.GetKoSpieleByName("Achtelfinale");
-        if (!achtelfinals.Any())
+        if (!achtelfinals.Any() && !vergangeneKoSpiele.Any())
         {
             // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
             achtelfinals = _koRepository.GetDummyAchtelfinals(8);
         }
         var viertelfinals = await _turnierplanRepository.GetKoSpieleByName("Viertelfinale");
-        if (!viertelfinals.Any())
+        if (!viertelfinals.Any() && !vergangeneKoSpiele.Any())
         {
             // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
             viertelfinals = _koRepository.GetDummyViertelfinals();
         }
         
         var halbfinals = await _turnierplanRepository.GetKoSpieleByName("Halbfinale");
-        if (!halbfinals.Any())
+        if (!halbfinals.Any() && !vergangeneKoSpiele.Any())
         {
             // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
             halbfinals = _koRepository.GetDummyHalbfinals();
         }
-        var finale = await _turnierplanRepository.GetFinalSpiel("Finale");
+
+        KoSpielVm finale = new KoSpielVm();
+        if (!vergangeneKoSpiele.Any())
+        {
+            finale = await _turnierplanRepository.GetFinalSpiel("Finale");
+        }
         
-        var spielUmPlatz3 = await _turnierplanRepository.GetFinalSpiel("Spiel um Platz 3");
-        
-        var vergangeneKoSpiele = await _turnierplanRepository.GetVergangeneKoSpiele();
+        KoSpielVm spielUmPlatz3 = new KoSpielVm();
+        if (!vergangeneKoSpiele.Any())
+        {
+            spielUmPlatz3 = await _turnierplanRepository.GetFinalSpiel("Spiel um Platz 3");
+        }
         
         var koPhase = new KoPhaseViewModel()
         {
