@@ -9,10 +9,12 @@ namespace MitternachtsCup.Controllers;
 public class SpielController : Controller
 {
     private readonly ISpielRepository _spielRepository;
+    private readonly ITeamRepository _teamRepository;
 
-    public SpielController(ISpielRepository spielRepository)
+    public SpielController(ISpielRepository spielRepository, ITeamRepository teamRepository)
     {
         _spielRepository = spielRepository;
+        _teamRepository = teamRepository;
     }
     public async Task<IActionResult> Index()
     {
@@ -41,10 +43,10 @@ public class SpielController : Controller
         
         var createSpielViewModel = new CreateSpielVm
         {
-            Name = "Gruppe X 1. Spiel",
+            Name = "1. Achtelfinale",
             TeamAId = teamAId,
             TeamBId = teamBId,
-            StartZeit = new DateTime(2023, 11, 25, 17, 0, 0),
+            StartZeit = new DateTime(2024, 11, 30, 20, 15, 0),
             SpielDauer = TimeSpan.FromMinutes(30)
         };
         return View(createSpielViewModel);
@@ -85,7 +87,9 @@ public class SpielController : Controller
             TeamAId = spiel.TeamAId,
             TeamA = spiel.TeamA,
             TeamBId = spiel.TeamBId,
-            TeamB = spiel.TeamB
+            TeamB = spiel.TeamB,
+            ErgebnisId = spiel.ErgebnisId,
+            Ergebnis = spiel.Ergebnis
         };
         return View(spielVm);
     }
@@ -103,7 +107,9 @@ public class SpielController : Controller
             TeamAId = spielVm.TeamAId,
             TeamA = spielVm.TeamA,
             TeamBId = spielVm.TeamBId,
-            TeamB = spielVm.TeamB
+            TeamB = spielVm.TeamB,
+            ErgebnisId = spielVm.ErgebnisId,
+            Ergebnis = spielVm.Ergebnis
         };
         _spielRepository.Update(spiel);
 
@@ -134,12 +140,47 @@ public class SpielController : Controller
                 }
             };
             _spielRepository.Update(spielMitErgebnis);
+
+            // Process points and games for teams if it is a group game
+            if (userSpiel.Name.Contains("gruppe", StringComparison.CurrentCultureIgnoreCase))
+            {
+                await UpdateTeamStats(userSpiel.TeamAId, userSpiel.TeamBId, punkteTeamA, punkteTeamB);
+            }
+
             return RedirectToAction("Tus", "Turnierplan");
         }
 
         return NotFound();
+        
     }
-    
+
+    private async Task UpdateTeamStats(int teamAId, int teamBId, int punkteTeamA, int punkteTeamB)
+    {
+        var teamA = await _teamRepository.GetByIdAsync(teamAId);
+        var teamB = await _teamRepository.GetByIdAsync(teamBId);
+        
+        if (teamA == null || teamB == null) return;
+
+        // Calculate points and games for team A
+        if (punkteTeamA > punkteTeamB)
+        {
+            teamA.Punkte = (teamA.Punkte ?? 0) + 2;
+        }
+        teamA.GewonneneSpiele = (teamA.GewonneneSpiele ?? 0) + punkteTeamA;
+        teamA.GegenSpiele = (teamA.GegenSpiele ?? 0) + punkteTeamB;
+
+        // Calculate points and games for team B
+        if (punkteTeamB > punkteTeamA)
+        {
+            teamB.Punkte = (teamB.Punkte ?? 0) + 2;
+        }
+        teamB.GewonneneSpiele = (teamB.GewonneneSpiele ?? 0) + punkteTeamB;
+        teamB.GegenSpiele = (teamB.GegenSpiele ?? 0) + punkteTeamA;
+
+        _teamRepository.Update(teamA);
+        _teamRepository.Update(teamB);
+    }
+
     public async Task<IActionResult> Delete(int id)
     {
         var spielDetails = await _spielRepository.GetByIdAsync(id);

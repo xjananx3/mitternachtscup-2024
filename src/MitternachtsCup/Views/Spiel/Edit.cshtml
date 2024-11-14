@@ -9,6 +9,7 @@
 <h2>Bearbeite Spiel</h2>
 
 <form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" value="ErgebnisId" id="ErgebnisId"/>
     <div class="form-group">
         <label asp-for="Name">Name</label>
         <input asp-for="Name" class="form-control" placeholder="Name">
@@ -40,6 +41,16 @@
         <label asp-for="TeamBId">Team B</label>
         <input asp-for="TeamBId" class="form-control" placeholder="IDvonTeamB">
         <span asp-validation-for="TeamBId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Ergebnis.PunkteTeamA">Punkte Team A</label>
+        <input asp-for="Ergebnis.PunkteTeamA" class="form-control" placeholder="PunktevonTeamA">
+        <span asp-validation-for="Ergebnis.PunkteTeamA" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Ergebnis.PunkteTeamB">Punkte Team B</label>
+        <input asp-for="Ergebnis.PunkteTeamB" class="form-control" placeholder="PunktevonTeamB">
+        <span asp-validation-for="Ergebnis.PunkteTeamB" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
