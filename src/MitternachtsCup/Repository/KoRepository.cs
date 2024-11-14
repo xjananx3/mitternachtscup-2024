@@ -1,4 +1,5 @@
 using System.Collections;
+using MitternachtsCup.Data.Enum;
 using MitternachtsCup.Interfaces;
 using MitternachtsCup.ViewModels;
 
@@ -47,8 +48,9 @@ public class KoRepository : IKoRepository
             Id = 15, 
             Name = "Finale", 
             TeamAName = "Sieger HF1", 
-            TeamBName = "Sieger HF2", 
-            StartZeit = DateTime.Now.AddDays(14)  
+            TeamBName = "Sieger HF2",
+            Platte = (Platten)1,
+            StartZeit = new DateTime(2024, 11, 30, 23,50, 0)
         };
     }
 
@@ -60,7 +62,8 @@ public class KoRepository : IKoRepository
             Name = "Spiel um Platz 3",
             TeamAName = "Verlierer HF1",
             TeamBName = "Verlierer HF2",
-            StartZeit = new DateTime(2024, 11, 30, 23,50, 0)
+            Platte = (Platten)3,
+            StartZeit = new DateTime(2024, 11, 30, 23,30, 0)
         };
     }
     
@@ -89,16 +92,23 @@ public class KoRepository : IKoRepository
 
         // Achtelfinale Generierung
         var schema = groupCount == 8 ? eightGroupSchema : sixGroupSchema;
+        int pIndex = 1;
         for (int i = 0; i < schema.Length; i++)
         {
+            if (pIndex > 6)
+            {
+                pIndex = 1;
+            }
             matches.Add(new KoSpielVm
             {
                 Id = i + 1,
                 Name = $"{i + 1}. Achtelfinale",
                 StartZeit = startTimes,
+                Platte = (Platten)pIndex,
                 TeamAName = schema[i].TeamA,
                 TeamBName = schema[i].TeamB
             });
+            pIndex++;
         }
         return matches;
     }
@@ -106,6 +116,8 @@ public class KoRepository : IKoRepository
     private IEnumerable<KoSpielVm> GenerateQuarterFinals(string roundName, int startId, DateTime startTime)
     {
         var matches = new List<KoSpielVm>();
+        
+        int pIndex = 1;
         for (int i = 0; i < 4; i++)
         {
             matches.Add(new KoSpielVm
@@ -113,9 +125,11 @@ public class KoRepository : IKoRepository
                 Id = startId + i,
                 Name = $"{i + 1}. {roundName}",
                 StartZeit = startTime,
+                Platte = (Platten)pIndex,
                 TeamAName = $"Sieger AF{i * 2 + 1}",
                 TeamBName = $"Sieger AF{i * 2 + 2}"
             });
+            pIndex++;
         }
 
         return matches;
@@ -124,6 +138,8 @@ public class KoRepository : IKoRepository
     private IEnumerable<KoSpielVm> GenerateSemiFinals(string roundName, int startId, DateTime startTime)
     {
         var matches = new List<KoSpielVm>();
+        
+        int pIndex = 1;
         for (int i = 0; i < 2; i++)
         {
             matches.Add(new KoSpielVm
@@ -131,9 +147,11 @@ public class KoRepository : IKoRepository
                 Id = startId + i,
                 Name = $"{i + 1}. {roundName}",
                 StartZeit = startTime,
+                Platte = (Platten)pIndex,
                 TeamAName = $"Sieger VF{i * 2 + 1}",
                 TeamBName = $"Sieger VF{i * 2 + 2}"
             });
+            pIndex++;
         }
 
         return matches;

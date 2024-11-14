@@ -9,8 +9,10 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Team-Nummer</th>
+        <th>ID</th>
         <th>Name</th>
+        <th>Punkte</th>
+        <th>Bilanz</th>
         <th>Delete</th>
     </tr>
     </thead>
@@ -20,6 +22,8 @@
         <tr>
             <td>@item.Id</td>
             <td>@item.Name</td>
+            <td>@item.Punkte</td>
+            <td>@item.GewonneneSpiele : @item.GegenSpiele</td>
             <td>
                 <a asp-controller="Team" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Bearbeiten</a>
                 <a asp-controller="Team" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Löschen</a>
