@@ -70,24 +70,44 @@
     </tbody>
 </table>
 
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Platz</th>
+        <th>Name</th>
+        <th>Punkte</th>
+        <th>Bilanz</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var team in Model.PlatzierungTeams)
+    {
+    <tr>
+        <td>@team.Platzierung</td>
+        <td>@team.Name</td>
+        <td>@team.Punkte</td>
+        <td>@team.Spiele : @team.Gegenspiele</td>
+    </tr>
+    }
+    </tbody>
+</table>
+
 <h3>Kommende Gruppenspiele</h3>
 
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Nr</th>
         <th>Name</th>
         <th>Platte</th>
         <th>Startzeit</th>
-        <th>TeamA Name</th>
-        <th>TeamB Name</th>
+        <th>TeamA</th>
+        <th>TeamB</th>
     </tr>
     </thead>
     <tbody>
     @foreach(var spiel in Model.GruppenSpiele)
     {
     <tr>
-        <td>@spiel.GruppenSpielNr</td>
         <td>@spiel.Name</td>
         <th>@spiel.Platte</th>
         <td>@spiel.StartZeit</td>
@@ -103,12 +123,11 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Nr</th>
         <th>Name</th>
         <th>Platte</th>
         <th>Startzeit</th>
-        <th>TeamA Name</th>
-        <th>TeamB Name</th>
+        <th>TeamA</th>
+        <th>TeamB</th>
         <th>Ergebnis</th>
     </tr>
     </thead>
@@ -116,7 +135,6 @@
     @foreach(var spiel in Model.VergangeneGruppenSpiele)
     {
     <tr>
-        <td>@spiel.GruppenSpielNr</td>
         <td>@spiel.Name</td>
         <th>@spiel.Platte</th>
         <td>@spiel.StartZeit</td>
@@ -133,3 +151,4 @@
     }
     </tbody>
 </table>
+
