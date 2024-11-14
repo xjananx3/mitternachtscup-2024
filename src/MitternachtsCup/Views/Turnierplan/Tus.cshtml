@@ -15,9 +15,9 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Platte</th>
-        <th>EDIT</th>
         <th>SpielName</th>
+        <th>Tisch</th>
+        <th>EDIT</th>
         <th>Startzeit</th>
         <th>Team A</th>
         <th>Team B</th>
@@ -30,11 +30,11 @@
     @foreach(var item in Model.GruppenSpieleOhneErgebnis)
     {
         <tr>
+            <td>@item.Name</td>
             <td>@item.Platte</td>
             <td>
                 <a asp-controller="Spiel" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Platte</a>
             </td>
-            <td>@item.Name</td>
             <td>@item.StartZeit</td>
             <td>@item.TeamAName</td>
             <td>@item.TeamBName</td>
@@ -47,10 +47,10 @@
                     <input type="number" name="punkteTeamB" value="0" min="0" max="3" class="form-control"/>
                 </td>
                 <td>
-                    <button type="submit" class="btn btn-sm btn-outline-secondary">Post</button>
+                    <button type="submit" class="btn btn-primary">Post</button>
                 </td>
             </form>
-            
+
         </tr>
     }
     </tbody>
@@ -61,7 +61,6 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Platte</th>
         <th>SpielName</th>
         <th>Team A</th>
         <th>Team B</th>
@@ -73,7 +72,6 @@
     @foreach(var item in Model.GruppenSpieleMitErgebnis)
     {
         <tr>
-            <td>@item.Platte</td>
             <td>@item.Name</td>
             <td>@item.TeamAName</td>
             <td>@item.TeamBName</td>
@@ -91,19 +89,41 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Platte</th>
         <th>SpielName</th>
+        <th>Tisch</th>
+        <th>EDIT</th>
+        <th>Startzeit</th>
         <th>Team A</th>
         <th>Team B</th>
+        <th>Punkte Team A</th>
+        <th>Punkte Team B</th>
+        <th>POST</th>
+    </tr>
     </thead>
     <tbody>
     @foreach(var item in Model.KoSpieleOhneErgebnis)
     {
         <tr>
-            <td>@item.Platte</td>
             <td>@item.Name</td>
+            <td>@item.Platte</td>
+            <td>
+                <a asp-controller="Spiel" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Platte</a>
+            </td>
+            <td>@item.StartZeit</td>
             <td>@item.TeamAName</td>
             <td>@item.TeamBName</td>
+            <form asp-controller="Spiel" asp-action="CreateErgebnis" method="post">
+                <td>
+                    <input type="hidden" name="spielId" value="@item.Id"/>
+                    <input type="number" name="punkteTeamA" value="0" min="0" max="3" class="form-control"/>
+                </td>
+                <td>
+                    <input type="number" name="punkteTeamB" value="0" min="0" max="3" class="form-control"/>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </td>
+            </form>
         </tr>
     }
     </tbody>
@@ -114,7 +134,6 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Platte</th>
         <th>SpielName</th>
         <th>Team A</th>
         <th>Team B</th>
@@ -126,7 +145,6 @@
     @foreach(var item in Model.KoSpieleMitErgebnis)
     {
         <tr>
-            <td>@item.Platte</td>
             <td>@item.Name</td>
             <td>@item.TeamAName</td>
             <td>@item.TeamBName</td>
