@@ -68,8 +68,16 @@ public class GruppenController : Controller
         {
             var json = await System.IO.File.ReadAllTextAsync(jsonPath);
             var gruppenTeams = JsonConvert.DeserializeObject<Dictionary<int, List<Team>>>(json);
-            var gruppenSpiele = _gruppenRepository.GetSavedPaarungen(gruppenTeams);
-            return View(gruppenSpiele);
+            var gruppenSpieleAusJson = _gruppenRepository.GetSavedPaarungen(gruppenTeams);
+            var gruppenSpielAusDb = await _spielRepository.GetGruppenSpiele();
+
+            var anzeigeVm = new AlleSpieleVm()
+            {
+                GruppenSpieleAusJson = gruppenSpieleAusJson,
+                AngelegteSpiele = gruppenSpielAusDb
+            };
+            
+            return View(anzeigeVm);
         }
 
         return NotFound();
@@ -81,6 +89,7 @@ public class GruppenController : Controller
         {
             Name = name,
             StartZeit = new DateTime(2024, 11, 30, 17, 0, 0),
+            Platte = Platten.Ausstehend,
             SpielDauer = TimeSpan.FromMinutes(20),
             TeamAId = teamAId,
             TeamBId = teamBId,
@@ -105,7 +114,7 @@ public class GruppenController : Controller
             TeamBId = spielVm.TeamBId,
         };
         _spielRepository.Add(spiel);
-        return RedirectToAction("AlleGruppen", "Gruppen");
+        return RedirectToAction("AlleSpiele", "Gruppen");
     }
     
     [HttpPost]

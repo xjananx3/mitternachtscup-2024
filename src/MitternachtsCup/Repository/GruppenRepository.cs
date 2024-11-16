@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MitternachtsCup.Data;
@@ -35,14 +36,16 @@ public class GruppenRepository : IGruppenRepository
             int groupIndex = kvp.Key;
             List<Team> teams = kvp.Value;
             
-            var gruppenSpieleProGruppe = ErrechneGruppenSpiele(teams, groupIndex);
+            var gruppenSpielePerGroup = ErrechneGruppenSpiele(teams, groupIndex);
+
+            var sortierteGruppenSpiele = SortiereGruppenSpiele(gruppenSpielePerGroup);
             
-            alleGruppenSpieleVm.AddRange(gruppenSpieleProGruppe);
+            alleGruppenSpieleVm.AddRange(sortierteGruppenSpiele);
         }
 
         return alleGruppenSpieleVm;
     }
-
+    
     public IEnumerable<GruppeVm> GetSavedGruppenMitPaarungen(int anzahlGruppen, Dictionary<int, List<Team>> gruppenTeams)
     {
         
@@ -88,6 +91,25 @@ public class GruppenRepository : IGruppenRepository
         }
 
         return gruppenSpiele;
+    }
+
+    public IEnumerable<GruppenSpielVm> SortiereGruppenSpiele(IEnumerable<GruppenSpielVm> gruppenSpiele)
+    {
+        var gruppenSpieleSortiert = gruppenSpiele
+            .OrderBy(spiel =>
+            {
+                // Extrahiere die Spielnummer (z.B. "1" aus "Gruppe A 1.Spiel")
+                var match = Regex.Match(spiel.Name, @"(\d+)\.Spiel");
+                return match.Success ? int.Parse(match.Groups[1].Value) : int.MaxValue; // Standardwert falls kein Match
+            })
+            .ThenBy(spiel =>
+            {
+                // Extrahiere die Gruppenkennung (z.B. "A" aus "Gruppe A")
+                var match = Regex.Match(spiel.Name, @"Gruppe\s([A-H])");
+                return match.Success ? match.Groups[1].Value : "Z"; // Standardwert falls kein Match
+            });
+
+        return gruppenSpieleSortiert;
     }
 
     private char GetBuchstabe(int number)
