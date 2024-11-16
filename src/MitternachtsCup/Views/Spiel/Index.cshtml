@@ -29,13 +29,13 @@
     <tr>
         <td>@item.Id</td>
         <td>@item.Name</td>
-        <th>@item.Platte</th>
-        <th>@item.StartZeit</th>
-        <th>@item.SpielDauer</th>
-        <th>@item.TeamAId</th>
-        <th>@item.TeamA.Name</th>
-        <th>@item.TeamB.Name</th>
-        <th>@item.TeamBId</th>
+        <td>@item.Platte</td>
+        <td>@item.StartZeit</td>
+        <td>@item.SpielDauer</td>
+        <td>@item.TeamAId</td>
+        <td>@item.TeamA.Name</td>
+        <td>@item.TeamB.Name</td>
+        <td>@item.TeamBId</td>
         <th>@item.Ergebnis</th>
         <td>
             <a asp-controller="Spiel" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Löschen</a>

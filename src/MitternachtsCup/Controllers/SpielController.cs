@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MitternachtsCup.Data;
+using MitternachtsCup.Data.Enum;
 using MitternachtsCup.Interfaces;
 using MitternachtsCup.Models;
 using MitternachtsCup.ViewModels;
@@ -16,6 +17,7 @@ public class SpielController : Controller
         _spielRepository = spielRepository;
         _teamRepository = teamRepository;
     }
+    
     public async Task<IActionResult> Index()
     {
         var spiele = await _spielRepository.GetAll();
@@ -33,14 +35,11 @@ public class SpielController : Controller
             TeamB = s.TeamB,
             Ergebnis = $"{s.Ergebnis?.PunkteTeamA} : {s.Ergebnis?.PunkteTeamB}" ?? string.Empty
         });
-        
-        
         return View(spieleVm);
     }
     
     public IActionResult Create(int teamAId, int teamBId)
     {
-        
         var createSpielViewModel = new CreateSpielVm
         {
             Name = "1. Achtelfinale",
@@ -55,25 +54,24 @@ public class SpielController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateSpielVm spielVm)
     {
-            var spiel = new Spiel()
-            {
-                Name = spielVm.Name,
-                Platte = spielVm.Platte,
-                StartZeit = spielVm.StartZeit,
-                SpielDauer = spielVm.SpielDauer,
-                TeamAId = spielVm.TeamAId,
-                TeamA = spielVm.TeamA,
-                TeamBId = spielVm.TeamBId,
-                TeamB = spielVm.TeamB
-            };
-            _spielRepository.Add(spiel);
-            return RedirectToAction("Index");
-       
+        var spiel = new Spiel()
+        {
+            Name = spielVm.Name,
+            Platte = spielVm.Platte,
+            StartZeit = spielVm.StartZeit,
+            SpielDauer = spielVm.SpielDauer,
+            TeamAId = spielVm.TeamAId,
+            TeamA = spielVm.TeamA,
+            TeamBId = spielVm.TeamBId,
+            TeamB = spielVm.TeamB
+        };
+        _spielRepository.Add(spiel);
+        return RedirectToAction("Index");
         
         return View(spielVm);
             
     }
-
+    
     public async Task<IActionResult> Edit(int id)
     {
         var spiel = await _spielRepository.GetByIdAsync(id);
@@ -114,6 +112,46 @@ public class SpielController : Controller
         _spielRepository.Update(spiel);
 
         return RedirectToAction("Index");
+    }
+    
+    public async Task<IActionResult> EditDetails(int id)
+    {
+        var spiel = await _spielRepository.GetByIdAsync(id);
+        if (spiel == null) return View("Error");
+        var spielVm = new EditSpielVm()
+        {
+            Name = spiel.Name,
+            Platte = spiel.Platte,
+            StartZeit = spiel.StartZeit,
+            SpielDauer = spiel.SpielDauer,
+            TeamAId = spiel.TeamAId,
+            TeamA = spiel.TeamA,
+            TeamBId = spiel.TeamBId,
+            TeamB = spiel.TeamB,
+            
+        };
+        return View(spielVm);
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> EditDetails(int id, EditSpielVm spielVm)
+    {
+        var spiel = new Spiel
+        {
+            Id = id,
+            Name = spielVm.Name,
+            Platte = spielVm.Platte,
+            StartZeit = spielVm.StartZeit,
+            SpielDauer = spielVm.SpielDauer,
+            TeamAId = spielVm.TeamAId,
+            TeamA = spielVm.TeamA,
+            TeamBId = spielVm.TeamBId,
+            TeamB = spielVm.TeamB,
+        };
+        _spielRepository.Update(spiel);
+
+        return RedirectToAction("Tus", "Turnierplan");
     }
     
     [HttpPost]
