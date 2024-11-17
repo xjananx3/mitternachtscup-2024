@@ -124,7 +124,7 @@ public class KoRepository : IKoRepository
             {
                 Id = startId + i,
                 Name = $"{i + 1}. {roundName}",
-                StartZeit = startTime,
+                StartZeit = new DateTime(2024, 11, 30, 22,0, 0),
                 Platte = (Platten)pIndex,
                 TeamAName = $"Sieger AF{i * 2 + 1}",
                 TeamBName = $"Sieger AF{i * 2 + 2}"
@@ -146,7 +146,7 @@ public class KoRepository : IKoRepository
             {
                 Id = startId + i,
                 Name = $"{i + 1}. {roundName}",
-                StartZeit = startTime,
+                StartZeit = new DateTime(2024, 11, 30, 22,45, 0),
                 Platte = (Platten)pIndex,
                 TeamAName = $"Sieger VF{i * 2 + 1}",
                 TeamBName = $"Sieger VF{i * 2 + 2}"

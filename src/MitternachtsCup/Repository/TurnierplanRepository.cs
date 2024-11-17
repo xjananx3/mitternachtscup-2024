@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MitternachtsCup.Data;
+using MitternachtsCup.Data.Enum;
 using MitternachtsCup.Interfaces;
 using MitternachtsCup.Models;
 using MitternachtsCup.ViewModels;
@@ -200,6 +201,7 @@ public class TurnierplanRepository : ITurnierplanRepository
             return new KoSpielVm()
             {
                 Name = name,
+                Platte = Platten.Tisch1,
                 TeamAName = "Sieger/Verlierer HF1",
                 TeamBName = "Sieger/Verlierer HF2",
                 StartZeit = new DateTime(2024, 11, 30, 23,30, 0)
