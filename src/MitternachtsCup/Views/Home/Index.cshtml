@@ -2,7 +2,17 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Rieder MitternachtsCup 2024</h1>
+        <div class="logo-footer">
+            <img src="logo1.png" alt="logo" width="265" height="374">
+        </div>
+        <p class="lead text-muted">Willkommen zum diesjährigen Mitternachtsturnier, zu Ehren des 50 jährigen TuS Jubiläums.</p>
+        <p>
+            <a class="btn btn-primary my-2" asp-area="" asp-controller="Turnierplan" asp-action="Index">Zum Turnierplan</a>
+            <a class="btn btn-primary my-2" asp-area="" asp-controller="Turnierplan" asp-action="GruppeA">Zu den Gruppen</a>
+        </p>
+    </div>
+
+</section>
