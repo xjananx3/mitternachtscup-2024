@@ -24,6 +24,11 @@ public class TeamRepository : ITeamRepository
         return await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
     }
 
+    public async Task<Team> GetByIdAsyncNoTracking(int id)
+    {
+        return await _context.Teams.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
+    }
+
     public bool Add(Team team)
     {
         _context.Add(team);
