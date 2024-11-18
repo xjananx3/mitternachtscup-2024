@@ -137,6 +137,7 @@ public class KoRepository : IKoRepository
     private IEnumerable<KoSpielVm> GenerateSemiFinals(string roundName, int startId, DateTime startTime)
     {
         var matches = new List<KoSpielVm>();
+        int pIndex = 1;
         for (int i = 0; i < 2; i++)
         {
             matches.Add(new KoSpielVm
@@ -144,9 +145,11 @@ public class KoRepository : IKoRepository
                 Id = startId + i,
                 Name = $"{i + 1}. {roundName}",
                 StartZeit = new DateTime(2024, 11, 30, 22,30, 0),
+                Platte = (Platten)pIndex,
                 TeamAName = $"Sieger VF{i * 2 + 1}",
                 TeamBName = $"Sieger VF{i * 2 + 2}"
             });
+            pIndex++;
         }
 
         return matches;

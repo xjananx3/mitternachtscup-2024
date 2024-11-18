@@ -1,0 +1,103 @@
+@model MitternachtsCup.ViewModels.GruppenMitSpieleVm
+
+@{
+    
+}
+
+@foreach (var item in Model.Gruppen)
+{
+<h2>@item.GruppenName</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Team-Nummer</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var team in item.Teams)
+    {
+    <tr>
+        <td>@team.Id</td>
+        <td>@team.Name</td>
+    </tr>
+    }
+    </tbody>
+</table>
+
+<h3>Paarungen</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Nr</th>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Starzeit</th>
+        <th>Spieldauer</th>
+        <th>ID</th>
+        <th>TeamA Name</th>
+        <th>TeamB Name</th>
+        <th>ID</th>
+        <th>CREATE</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var spiel in item.GruppenSpiele)
+    {
+    <tr>
+        <td>@spiel.GruppenSpielNr</td>
+        <td>@spiel.Name</td>
+        <th>@spiel.Platte</th>
+        <td>@spiel.StartZeit</td>
+        <td>@spiel.SpielDauer</td>
+        <td>@spiel.TeamAId</td>
+        <td>@spiel.TeamAName</td>
+        <td>@spiel.TeamBName</td>
+        <td>@spiel.TeamBId</td>
+        <td><a asp-action="CreateSpiel" asp-route-name=@spiel.Name asp-route-teamAId=@spiel.TeamAId asp-route-teamBId=@spiel.TeamBId class="btn btn-primary">Post</a></td>
+    </tr>
+    }
+    </tbody>
+</table>
+}
+
+<h1>Eingetragende Spiele</h1>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Platte</th>
+        <th>Startzeit</th>
+        <th>SpielDauer</th>
+        <th>TeamA ID</th>
+        <th>Team A</th>
+        <th>Team B</th>
+        <th>Team B ID</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var item in Model.AngelegteGruppenSpiele)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <th>@item.Platte</th>
+            <th>@item.StartZeit</th>
+            <th>@item.SpielDauer</th>
+            <th>@item.TeamAId</th>
+            <th>@item.TeamA.Name</th>
+            <th>@item.TeamB.Name</th>
+            <th>@item.TeamBId</th>
+            <td>
+                <a asp-controller="Spiel" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Löschen</a>
+                <a asp-controller="Spiel" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Bearbeiten</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

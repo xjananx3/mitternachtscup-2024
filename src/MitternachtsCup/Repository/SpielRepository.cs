@@ -21,7 +21,19 @@ public class SpielRepository : ISpielRepository
             .Include(s => s.Ergebnis)
             .ToListAsync();
     }
-    
+
+    public async Task<IEnumerable<Spiel>> GetGruppenSpiele()
+    {
+        var alleSpiele = await _context.Spiele
+            .Include(s => s.TeamA)
+            .Include(s => s.TeamB)
+            .Include(s => s.Ergebnis)
+            .ToListAsync();
+
+        return alleSpiele
+            .Where(s => s.Name.Contains("gruppe", StringComparison.CurrentCultureIgnoreCase));
+    }
+
     public async Task<Spiel> GetByIdAsync(int id)
     {
         return await _context.Spiele
