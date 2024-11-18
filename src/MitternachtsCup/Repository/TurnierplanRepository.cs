@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MitternachtsCup.Data;
+using MitternachtsCup.Data.Enum;
 using MitternachtsCup.Interfaces;
 using MitternachtsCup.Models;
 using MitternachtsCup.ViewModels;
@@ -171,6 +172,7 @@ public class TurnierplanRepository : ITurnierplanRepository
             .Include(s => s.TeamA)
             .Include(t => t.TeamB)
             .Include(i => i.Ergebnis)
+            .Where(s => s.ErgebnisId == null || (s.Ergebnis.PunkteTeamA == 0 && s.Ergebnis.PunkteTeamB == 0))
             .ToListAsync();
         
         return koSpiele.Where(s => s.Name.Contains(name) )
@@ -201,6 +203,7 @@ public class TurnierplanRepository : ITurnierplanRepository
                 Name = name,
                 TeamAName = "Sieger/Verlierer HF1",
                 TeamBName = "Sieger/Verlierer HF2",
+                Platte = Platten.Tisch1,
                 StartZeit = new DateTime(2024, 11, 30, 23,30, 0)
             };
 
