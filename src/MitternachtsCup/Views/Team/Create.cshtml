@@ -12,5 +12,20 @@
         <input asp-for="Name" class="form-control" placeholder="Name">
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="Punkte">Punkte des Teams</label>
+        <input asp-for="Punkte" class="form-control" placeholder="Punkte">
+        <span asp-validation-for="Punkte" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GewonneneSpiele">Gewonnene Spiele</label>
+        <input asp-for="GewonneneSpiele" class="form-control" placeholder="GewonneneSpiele">
+        <span asp-validation-for="GewonneneSpiele" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GegenSpiele">Verlorene Spiele</label>
+        <input asp-for="GegenSpiele" class="form-control" placeholder="VerloreneSpiele">
+        <span asp-validation-for="GegenSpiele" class="text-danger"></span>
+    </div>
     <button type="submit" class="btn btn-primary">Bestätigen</button>
 </form>

@@ -121,7 +121,6 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Nr</th>
         <th>Name</th>
         <th>Tisch</th>
         <th>Startzeit</th>
@@ -137,8 +136,10 @@
         <td>@spiel.Name</td>
         <th>@spiel.Platte</th>
         <td>@spiel.StartZeit</td>
+        <td>@spiel.TeamAId</td>
         <td>@spiel.TeamAName</td>
         <td>@spiel.TeamBName</td>
+        <td>@spiel.TeamBId</td>
     </tr>
     }
     </tbody>
@@ -149,7 +150,6 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Nr</th>
         <th>Name</th>
         <th>Tisch</th>
         <th>Startzeit</th>
@@ -166,8 +166,10 @@
         <td>@spiel.Name</td>
         <th>@spiel.Platte</th>
         <td>@spiel.StartZeit</td>
+        <td>@spiel.TeamAId</td>
         <td>@spiel.TeamAName</td>
         <td>@spiel.TeamBName</td>
+        <td>@spiel.TeamBId</td>
         <td>
             @if (spiel.Ergebnis != null)
             {
