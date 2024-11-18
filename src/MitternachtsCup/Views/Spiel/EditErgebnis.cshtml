@@ -1,0 +1,56 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using MitternachtsCup.Data.Enum
+@model MitternachtsCup.ViewModels.EditSpielVm
+
+@{
+    
+}
+
+<h2>Bearbeite Spiel mit Ergebnis</h2>
+
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" value="ErgebnisId" id="ErgebnisId"/>
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" placeholder="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Platte">Platten</label>
+        <select asp-for="Platte" asp-items="@Html.GetEnumSelectList<Platten>()" class="form-control">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="Platte" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StartZeit">Startzeit</label>
+        <input asp-for="StartZeit" class="form-control" placeholder="StartZeit">
+        <span asp-validation-for="StartZeit" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SpielDauer">Spieldauer</label>
+        <input asp-for="SpielDauer" class="form-control" placeholder="SpielDauer">
+        <span asp-validation-for="SpielDauer" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TeamAId">Team A</label>
+        <input asp-for="TeamAId" class="form-control" placeholder="IDVonTeamA">
+        <span asp-validation-for="TeamAId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TeamBId">Team B</label>
+        <input asp-for="TeamBId" class="form-control" placeholder="IDvonTeamB">
+        <span asp-validation-for="TeamBId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Ergebnis.PunkteTeamA">Punkte Team A</label>
+        <input asp-for="Ergebnis.PunkteTeamA" class="form-control" placeholder="PunktevonTeamA">
+        <span asp-validation-for="Ergebnis.PunkteTeamA" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Ergebnis.PunkteTeamB">Punkte Team B</label>
+        <input asp-for="Ergebnis.PunkteTeamB" class="form-control" placeholder="PunktevonTeamB">
+        <span asp-validation-for="Ergebnis.PunkteTeamB" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -47,6 +47,8 @@ public class TeamController : Controller
         {
             Name = team.Name,
             Punkte = team.Punkte,
+            Spiele = team.GewonneneSpiele,
+            GegenSpiele = team.GegenSpiele
         };
         return View(teamVm);
     }
@@ -64,6 +66,8 @@ public class TeamController : Controller
             Id = id,
             Name = teamVm.Name,
             Punkte = teamVm.Punkte,
+            GewonneneSpiele = teamVm.Spiele,
+            GegenSpiele = teamVm.GegenSpiele
         };
         _teamRepository.Update(team);
         return RedirectToAction("Index");

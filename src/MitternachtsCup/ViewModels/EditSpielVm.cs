@@ -14,4 +14,6 @@ public class EditSpielVm
     public Team? TeamA { get; set; }
     public int? TeamBId { get; set; }
     public Team? TeamB { get; set; }
+    public int? ErgebnisId { get; set; }
+    public Ergebnis? Ergebnis { get; set; }
 }

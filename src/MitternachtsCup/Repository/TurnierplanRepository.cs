@@ -19,7 +19,7 @@ public class TurnierplanRepository : ITurnierplanRepository
         var spiele = await _context.Spiele
             .Include(s => s.TeamA)
             .Include(t => t.TeamB)
-            .Where(s => s.ErgebnisId == null)
+            .Where(s => s.ErgebnisId == null || (s.Ergebnis.PunkteTeamA == 0 && s.Ergebnis.PunkteTeamB == 0))
             .ToListAsync();
         
         return spiele.Where(s => s.Name.Contains("gruppe", StringComparison.CurrentCultureIgnoreCase))
@@ -68,10 +68,10 @@ public class TurnierplanRepository : ITurnierplanRepository
         var koSpiele = await _context.Spiele
             .Include(s => s.TeamA)
             .Include(s => s.TeamB)
-            .Where(s => s.ErgebnisId == null)
+            .Where(s => s.ErgebnisId == null || (s.Ergebnis.PunkteTeamA == 0 && s.Ergebnis.PunkteTeamB == 0) )
             .ToListAsync();
 
-        return koSpiele.Where(s => s.Name.Contains("finale", StringComparison.CurrentCultureIgnoreCase) || s.Name.Contains("Bronze"))
+        return koSpiele.Where(s => s.Name.Contains("finale", StringComparison.CurrentCultureIgnoreCase) || s.Name.Contains("Spiel um Platz 3", StringComparison.CurrentCultureIgnoreCase))
             .Select(s => new KoSpielVm()
             {
                 Id = s.Id,
@@ -95,7 +95,7 @@ public class TurnierplanRepository : ITurnierplanRepository
             .Where(s => s.ErgebnisId != null)
             .ToListAsync();
 
-        return koSpiele.Where(s => s.Name.Contains("finale", StringComparison.CurrentCultureIgnoreCase) || s.Name.Contains("Bronze", StringComparison.CurrentCultureIgnoreCase))
+        return koSpiele.Where(s => s.Name.Contains("finale", StringComparison.CurrentCultureIgnoreCase) || s.Name.Contains("Spiel um Platz 3", StringComparison.CurrentCultureIgnoreCase))
             .Select(s => new KoSpielVm()
             {
                 Id = s.Id,
@@ -165,6 +165,59 @@ public class TurnierplanRepository : ITurnierplanRepository
         return gruppeVm;
     }
 
+    public async Task<IEnumerable<KoSpielVm>> GetKoSpieleByName(string name)
+    {
+        var koSpiele = await _context.Spiele
+            .Include(s => s.TeamA)
+            .Include(t => t.TeamB)
+            .Include(i => i.Ergebnis)
+            .ToListAsync();
+        
+        return koSpiele.Where(s => s.Name.Contains(name) )
+            .Select(s => new KoSpielVm()
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Platte = s.Platte,
+                StartZeit = s.StartZeit,
+                SpielDauer = s.SpielDauer,
+                TeamAId = s.TeamAId,
+                TeamAName = s.TeamA.Name,
+                TeamBId = s.TeamBId,
+                TeamBName = s.TeamB.Name,
+            });
+    }
+
+    public async Task<KoSpielVm> GetFinalSpiel(string name)
+    {
+        var finalSpiel = await _context.Spiele
+            .Include(s => s.TeamA)
+            .Include(s => s.TeamB)
+            .FirstOrDefaultAsync(s => s.Name.Contains(name));
+        
+        if(finalSpiel == null)
+            return new KoSpielVm()
+            {
+                Name = name,
+                TeamAName = "Sieger/Verlierer HF1",
+                TeamBName = "Sieger/Verlierer HF2",
+                StartZeit = new DateTime(2024, 11, 30, 23,30, 0)
+            };
+
+        return new KoSpielVm()
+        {
+            Id = finalSpiel.Id,
+            Name = finalSpiel.Name,
+            Platte = finalSpiel.Platte,
+            StartZeit = finalSpiel.StartZeit,
+            SpielDauer = finalSpiel.SpielDauer,
+            TeamAId = finalSpiel.TeamAId,
+            TeamAName = finalSpiel.TeamA.Name,
+            TeamBId = finalSpiel.TeamBId,
+            TeamBName = finalSpiel.TeamB.Name,
+        };
+    }
+    
     private async Task<IEnumerable<TeamVm>> GetGruppeTeamsPlatzierung(IEnumerable<Spiel> gruppenSpiele, string gruppeName)
     {
         var spiele = gruppenSpiele.Where(s => s.Name.Contains(gruppeName, StringComparison.CurrentCultureIgnoreCase));
