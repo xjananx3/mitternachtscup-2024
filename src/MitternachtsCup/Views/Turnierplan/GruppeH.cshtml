@@ -132,20 +132,17 @@
     @foreach(var spiel in Model.GruppenSpiele)
     {
     <tr>
-        <td>@spiel.GruppenSpielNr</td>
         <td>@spiel.Name</td>
         <th>@spiel.Platte</th>
         <td>@spiel.StartZeit</td>
-        <td>@spiel.TeamAId</td>
         <td>@spiel.TeamAName</td>
         <td>@spiel.TeamBName</td>
-        <td>@spiel.TeamBId</td>
     </tr>
     }
     </tbody>
 </table>
 
-<h2>Vergangene Gruppenspiele</h2>
+<h3>Vergangene Gruppenspiele</h3>
 
 <table class="table table-bordered">
     <thead>
@@ -162,14 +159,11 @@
     @foreach(var spiel in Model.VergangeneGruppenSpiele)
     {
     <tr>
-        <td>@spiel.GruppenSpielNr</td>
         <td>@spiel.Name</td>
         <th>@spiel.Platte</th>
         <td>@spiel.StartZeit</td>
-        <td>@spiel.TeamAId</td>
         <td>@spiel.TeamAName</td>
         <td>@spiel.TeamBName</td>
-        <td>@spiel.TeamBId</td>
         <td>
             @if (spiel.Ergebnis != null)
             {
