@@ -47,6 +47,14 @@
             vertical-align: middle;
             text-align: center;
         }
+        
+        /* Wechselnde Farben für kommende Ko Spiele */
+        .table-spiele tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+        .table-spiele tbody tr:nth-child(even) {
+            background-color: #e9ecef;
+        }
     </style>
     <title>KO Phase</title>
 </head>
@@ -55,12 +63,11 @@
 
 <h2>Achtelfinale</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-spiele">
     <thead>
     <tr>
         <th>Name</th>
-        <th>Platte</th>
-        <th>Startzeit</th>
+        <th>Tisch</th>
         <th>TeamA Name</th>
         <th>TeamB Name</th>
     </tr>
@@ -71,7 +78,6 @@
     <tr>
         <td>@spiel.Name</td>
         <th>@spiel.Platte</th>
-        <td>@spiel.StartZeit</td>
         <td>@spiel.TeamAName</td>
         <td>@spiel.TeamBName</td>
     </tr>
@@ -81,12 +87,11 @@
 
 <h2>Viertelfinale</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-spiele">
     <thead>
     <tr>
         <th>Name</th>
-        <th>Platte</th>
-        <th>Startzeit</th>
+        <th>Tisch</th>
         <th>TeamA Name</th>
         <th>TeamB Name</th>
     </tr>
@@ -97,7 +102,6 @@
     <tr>
         <td>@spiel.Name</td>
         <th>@spiel.Platte</th>
-        <td>@spiel.StartZeit</td>
         <td>@spiel.TeamAName</td>
         <td>@spiel.TeamBName</td>
     </tr>
@@ -107,12 +111,11 @@
 
 <h2>Halbfinale</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-spiele">
     <thead>
     <tr>
         <th>Name</th>
-        <th>Platte</th>
-        <th>Startzeit</th>
+        <th>Tisch</th>
         <th>TeamA Name</th>
         <th>TeamB Name</th>
     </tr>
@@ -123,7 +126,6 @@
     <tr>
         <td>@spiel.Name</td>
         <th>@spiel.Platte</th>
-        <td>@spiel.StartZeit</td>
         <td>@spiel.TeamAName</td>
         <td>@spiel.TeamBName</td>
     </tr>
@@ -137,8 +139,7 @@
     <thead>
     <tr>
         <th>Name</th>
-        <th>Platte</th>
-        <th>Startzeit</th>
+        <th>Tisch</th>
         <th>TeamA Name</th>
         <th>TeamB Name</th>
     </tr>
@@ -147,7 +148,6 @@
     <tr>
         <td>@Model.SpielUmPlatz3.Name</td>
         <th>@Model.SpielUmPlatz3.Platte</th>
-        <td>@Model.SpielUmPlatz3.StartZeit</td>
         <td>@Model.SpielUmPlatz3.TeamAName</td>
         <td>@Model.SpielUmPlatz3.TeamBName</td>
     </tr>
@@ -161,8 +161,7 @@
     <thead>
     <tr>
         <th>Name</th>
-        <th>Platte</th>
-        <th>Startzeit</th>
+        <th>Tisch</th>
         <th>TeamA Name</th>
         <th>TeamB Name</th>
     </tr>
@@ -171,7 +170,6 @@
     <tr>
         <td>@Model.Finale.Name</td>
         <th>@Model.Finale.Platte</th>
-        <td>@Model.Finale.StartZeit</td>
         <td>@Model.Finale.TeamAName</td>
         <td>@Model.Finale.TeamBName</td>
     </tr>
@@ -182,12 +180,10 @@
 
 <h2>Vergangene Ko-Spiele</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-spiele">
     <thead>
     <tr>
         <th>Name</th>
-        <th>Platte</th>
-        <th>Startzeit</th>
         <th>TeamA Name</th>
         <th>TeamB Name</th>
         <th>Ergebnis</th>
@@ -198,8 +194,6 @@
     {
     <tr>
         <td>@spiel.Name</td>
-        <th>@spiel.Platte</th>
-        <td>@spiel.StartZeit</td>
         <td>@spiel.TeamAName</td>
         <td>@spiel.TeamBName</td>
         <td>@spiel.Ergebnis.PunkteTeamA : @spiel.Ergebnis.PunkteTeamB</td>

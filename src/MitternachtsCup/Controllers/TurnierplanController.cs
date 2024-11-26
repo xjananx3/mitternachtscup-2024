@@ -130,31 +130,24 @@ public class TurnierplanController : Controller
             achtelfinals = _koRepository.GetDummyAchtelfinals(8);
         }
         var viertelfinals = await _turnierplanRepository.GetKoSpieleByName("Viertelfinale");
-        if (!viertelfinals.Any() && !vergangeneKoSpiele.Any())
+        if (!viertelfinals.Any())
         {
             // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
             viertelfinals = _koRepository.GetDummyViertelfinals();
         }
         
         var halbfinals = await _turnierplanRepository.GetKoSpieleByName("Halbfinale");
-        if (!halbfinals.Any() && !vergangeneKoSpiele.Any())
+        if (!halbfinals.Any())
         {
             // Wenn `koSpiele` leer ist, lade die Daten von `_koRepository`
             halbfinals = _koRepository.GetDummyHalbfinals();
         }
-        
         KoSpielVm finale = new KoSpielVm();
-        if (!vergangeneKoSpiele.Any())
-        {
-            finale = await _turnierplanRepository.GetFinalSpiel("Finale");
-        }
+        finale = await _turnierplanRepository.GetFinalSpiel("Finale");
+        
         
         KoSpielVm spielUmPlatz3 = new KoSpielVm();
-        if (!vergangeneKoSpiele.Any())
-        {
-            spielUmPlatz3 = await _turnierplanRepository.GetFinalSpiel("Spiel um Platz 3");
-        }
-
+        spielUmPlatz3 = await _turnierplanRepository.GetFinalSpiel("Spiel um Platz 3");
         
         var koPhase = new KoPhaseVm()
         {

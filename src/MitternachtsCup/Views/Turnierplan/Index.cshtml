@@ -47,6 +47,12 @@
             vertical-align: middle;
             text-align: center;
         }
+        .table-spiele tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+        .table-spiele tbody tr:nth-child(even) {
+            background-color: #e9ecef;
+        }
     </style>
     <title>Alle Spiele</title>
 </head>
@@ -92,17 +98,14 @@
     </nav>
 </header>
 
-<h2>Gruppenspiele</h2>
-
-<table class="table table-bordered">
+<h2>Kommende Gruppenspiele</h2>
+<table class="table table-bordered table-spiele">
     <thead>
     <tr>
         <th>Name</th>
-        <th>Tisch</th>
-        <th>Startzeit</th>
-        <th>SpielDauer</th>
         <th>Team A</th>
         <th>Team B</th>
+        <th>Tisch</th>
     </tr>
     </thead>
     <tbody>
@@ -110,11 +113,9 @@
     {
     <tr>
         <td>@item.Name</td>
-        <td>@item.Platte</td>
-        <td>@item.StartZeit</td>
-        <td>@item.SpielDauer</td>
         <td>@item.TeamAName</td>
         <td>@item.TeamBName</td>
+        <th>@item.Platte</th>
     </tr>
     }
     </tbody>
@@ -122,7 +123,7 @@
 
 <h2>Vergangene Gruppenspiele</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-spiele">
     <thead>
     <tr>
         <th>Name</th>
@@ -146,33 +147,31 @@
 
 <h2>Kommende Ko-Spiele</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-spiele">
     <thead>
     <tr>
         <th>Name</th>
-        <th>Tisch</th>
-        <th>Startzeit</th>
         <th>Team A</th>
         <th>Team B</th>
+        <th>Tisch</th>
     </tr>
     </thead>
     <tbody>
     @foreach(var item in Model.KoSpieleOhneErgebnis)
     {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Platte</td>
-            <td>@item.StartZeit</td>
-            <td>@item.TeamAName</td>
-            <td>@item.TeamBName</td>
-        </tr>
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.TeamAName</td>
+        <td>@item.TeamBName</td>
+        <th>@item.Platte</th>
+    </tr>
     }
     </tbody>
 </table>
 
 <h2>Vergangene Ko-Spiele</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-spiele">
     <thead>
     <tr>
         <th>Name</th>
@@ -184,12 +183,13 @@
     <tbody>
     @foreach(var item in Model.KoSpieleMitErgebnis)
     {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.TeamAName</td>
-            <td>@item.TeamBName</td>
-            <td>@item.Ergebnis.PunkteTeamA : @item.Ergebnis.PunkteTeamB</td>
-        </tr>
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.TeamAName</td>
+        <td>@item.TeamBName</td>
+        <td>@item.Ergebnis.PunkteTeamA : @item.Ergebnis.PunkteTeamB</td>
+    </tr>
     }
     </tbody>
 </table>
+

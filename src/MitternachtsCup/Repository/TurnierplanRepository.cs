@@ -195,7 +195,7 @@ public class TurnierplanRepository : ITurnierplanRepository
         var finalSpiel = await _context.Spiele
             .Include(s => s.TeamA)
             .Include(s => s.TeamB)
-            .FirstOrDefaultAsync(s => s.Name.Contains(name));
+            .FirstOrDefaultAsync(s => s.Name == name);
         
         if(finalSpiel == null)
             return new KoSpielVm()

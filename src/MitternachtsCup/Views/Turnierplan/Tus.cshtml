@@ -15,7 +15,7 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Platte</th>
+        <th>Tisch</th>
         <th>EDIT</th>
         <th>SpielName</th>
         <th>Startzeit</th>
@@ -91,8 +91,9 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Name des Spiels</th>
             <th>Tisch</th>
+            <th>EDIT</th>
+            <th>SpielName</th>
             <th>Startzeit</th>
             <th>Team A</th>
             <th>Team B</th>
@@ -105,8 +106,9 @@
     @foreach(var item in Model.KoSpieleOhneErgebnis)
     {
         <tr>
-            <td>@item.Name</td>
             <td>@item.Platte</td>
+            <td><a asp-controller="Spiel" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a></td>
+            <td>@item.Name</td>
             <td>@item.StartZeit</td>
             <td>@item.TeamAName</td>
             <td>@item.TeamBName</td>
@@ -133,6 +135,7 @@
     <thead>
     <tr>
         <th>SpielName</th>
+        <th>EDIT</th>
         <th>Team A</th>
         <th>Team B</th>
         <th>Ergebnis</th>

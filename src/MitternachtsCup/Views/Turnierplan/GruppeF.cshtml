@@ -47,6 +47,20 @@
             vertical-align: middle;
             text-align: center;
         }
+        /* Platzierungstabellen Farben */
+        .table-platzierung tbody tr:first-child {
+            background-color: #c3e6cb; /* Hellgrün für den 1. Platz */
+        }
+        .table-platzierung tbody tr:nth-child(2) {
+            background-color: #d4edda; /* Etwas dunkleres Grün für den 2. Platz */
+        }
+        /* Wechselnde Farben für kommende Gruppenspiele */
+        .table-spiele tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+        .table-spiele tbody tr:nth-child(even) {
+            background-color: #e9ecef;
+        }
     </style>
     <title>Tischtennis Turnier - Gruppe F</title>
 </head>
@@ -94,7 +108,7 @@
 
 <h2>Gruppe F</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-platzierung">
     <thead>
     <tr>
         <th>Platz</th>
@@ -118,14 +132,13 @@
 
 <h3>Kommende Gruppenspiele</h3>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-spiele">
     <thead>
     <tr>
         <th>Name</th>
-        <th>Tisch</th>
-        <th>Startzeit</th>
         <th>TeamA Name</th>
         <th>TeamB Name</th>
+        <th>Tisch</th>
     </tr>
     </thead>
     <tbody>
@@ -133,10 +146,9 @@
     {
     <tr>
         <td>@spiel.Name</td>
-        <th>@spiel.Platte</th>
-        <td>@spiel.StartZeit</td>
         <td>@spiel.TeamAName</td>
         <td>@spiel.TeamBName</td>
+        <th>@spiel.Platte</th>
     </tr>
     }
     </tbody>
@@ -144,7 +156,7 @@
 
 <h3>Vergangene Gruppenspiele</h3>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-spiele">
     <thead>
     <tr>
         <th>Name</th>
