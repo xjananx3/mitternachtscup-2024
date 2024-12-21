@@ -1,51 +1,50 @@
 {
     "1": [
-        {"Id":3, "Name":"Larios", "Punkte":null},
-        {"Id":6, "Name":"Team Dobey", "Punkte":null},
-        {"Id":8, "Name":"Kampfschnecken", "Punkte":null},
-        {"Id":16, "Name":"Piraten 1", "Punkte":null}
+        {"Id":26, "Name":"Schmetterlinge"},
+        {"Id":1, "Name":"Larios"},
+        {"Id":4, "Name":"Team Dobey"},
+        {"Id":6, "Name":"Kampfschnecken"}
     ],
     "2": [
-        {"Id":4, "Name":"Team Havanna 1", "Punkte":null},
-        {"Id":7, "Name":"Moorknechte", "Punkte":null},
-        {"Id":10, "Name":"SoulEater", "Punkte":null},
-        {"Id":17, "Name":"Piraten 2", "Punkte":null}
+        {"Id":2, "Name":"Team Havanna 1"},
+        {"Id":5, "Name":"Moorknechte"},
+        {"Id":8, "Name":"SoulEater"},
+        {"Id":15, "Name":"Piraten 2"}
     ],
     "3": [
-        {"Id":5, "Name":"Team Havanna 2", "Punkte":null},
-	{"Id":20, "Name":"RS Ingenieure", "Punkte":null},
-        {"Id":11, "Name":"Team Schiggy", "Punkte":null},
-        {"Id":19, "Name":"Malongsom", "Punkte":null}
-        
+        {"Id":3, "Name":"Team Havanna 2"},
+	    {"Id":18, "Name":"Topspinners"},
+        {"Id":9, "Name":"Team Schiggy"},
+        {"Id":17, "Name":"Malongsom"}
     ],
     "4": [
-        {"Id":9, "Name":"Rieberger", "Punkte":null},
-        {"Id":12, "Name":"Team Planlos", "Punkte":null},
-	{"Id":18, "Name":"Old Schmetterhand", "Punkte":null},
-        {"Id":22, "Name":"Musikverein Sasbachried", "Punkte":null}
+        {"Id":14, "Name":"Piraten 1"},
+        {"Id":10, "Name":"Team Planlos"},
+	    {"Id":16, "Name":"Old Schmetterhand"},
+        {"Id":20, "Name":"Musikverein Sasbachried"}
     ],
     "5": [
-        {"Id":13, "Name":"Die Plattenputzer", "Punkte":null},
-        {"Id":14, "Name":"Die Kräutersaitlinge", "Punkte":null},
-        {"Id":21, "Name":"SVS", "Punkte":null},
-        {"Id":23, "Name":"Musikverein Sasbachried 2", "Punkte":null}
+        {"Id":11, "Name":"Die Plattenputzer"},
+        {"Id":12, "Name":"Ping-Pong-Poeten"},
+        {"Id":19, "Name":"SVS"},
+        {"Id":21, "Name":"Musikverein Sasbachried 2"}
     ],
     "6": [
-        {"Id":15, "Name":"Autoservice Lang", "Punkte":null},
-        {"Id":24, "Name":"Feuerwehr 1", "Punkte":null},
-        {"Id":27, "Name":"TTC Schnelle Kelle", "Punkte":null},
-        {"Id":31, "Name":"Bohnenklopfer 1", "Punkte":null}
+        {"Id":13, "Name":"Autoservice Lang"},
+        {"Id":22, "Name":"Schluchhalder"},
+        {"Id":25, "Name":"TTC Schnelle Kelle"},
+        {"Id":29, "Name":"Bohnenklopfer 1"}
     ],
     "7": [
-        {"Id":25, "Name":"Feuerwehr 2", "Punkte":null},
-        {"Id":28, "Name":"Schmetterlinge", "Punkte":null},
-        {"Id":29, "Name":"Die letzten Heuler", "Punkte":null},
-        {"Id":32, "Name":"Bohnenklopfer 2", "Punkte":null}
+        {"Id":23, "Name":"Blaulichtbuben"},
+        {"Id":7, "Name":"Rieberger"},
+        {"Id":27, "Name":"Die letzten Heuler"},
+        {"Id":30, "Name":"Bohnenklopfer 2"}
     ],
     "8": [
-        {"Id":26, "Name":"Feuerwehr 3", "Punkte":null},
-        {"Id":30, "Name":"Die letzten Heuler 2", "Punkte":null},
-        {"Id":33, "Name":"Sasbacher Trunkenbolde", "Punkte":null},
-        {"Id":34, "Name":"TC Schmettern & Scheppern", "Punkte":null}
+        {"Id":24, "Name":"112-Butterfly"},
+        {"Id":28, "Name":"Die letzten Heuler 2"},
+        {"Id":31, "Name":"Freies Team"},
+        {"Id":32, "Name":"TC Schmettern & Scheppern"}
     ]
 }
