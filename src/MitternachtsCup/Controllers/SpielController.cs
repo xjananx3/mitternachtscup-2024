@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MitternachtsCup.Data;
 using MitternachtsCup.Interfaces;
@@ -6,6 +7,7 @@ using MitternachtsCup.ViewModels;
 
 namespace MitternachtsCup.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class SpielController : Controller
 {
     private readonly ISpielRepository _spielRepository;
